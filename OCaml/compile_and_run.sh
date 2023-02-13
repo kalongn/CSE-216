@@ -1,7 +1,8 @@
 #!/bin/bash
 
-ocamlopt -c "$1.ml"
-ocamlopt -o program "$1.cmx"
+ocamlopt -c $1
+fileName=${1%.ml}
+ocamlopt -o program "$fileName.cmx"
 
 ./program
 
