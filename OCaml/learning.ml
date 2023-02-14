@@ -34,3 +34,8 @@ let reverse_list list =
     | h::t -> aux (h::acc) t 
   in aux [] list
 ;;
+
+(*Q6*)
+let pallindrome list =
+  list = reverse_list list
+;;
