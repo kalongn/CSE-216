@@ -26,3 +26,11 @@ let length_tail list =
     | [] -> n
     | h::t -> aux (n+1) t
 in aux 0 list;;
+
+(*Q5*)
+let reverse_list list =
+  let rec aux acc list = match list with
+    | [] -> acc
+    | h::t -> aux (h::acc) t 
+  in aux [] list
+;;
