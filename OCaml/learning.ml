@@ -39,3 +39,15 @@ let reverse_list list =
 let pallindrome list =
   list = reverse_list list
 ;;
+
+(*Q7*)
+type 'a node =
+  | One of 'a 
+  | Many of 'a node list
+let flatten_list list = 
+  let rec aux acc list = match list with
+    | [] -> acc
+    | One h::t -> aux (h::acc) t
+    | Many hl::t -> aux (aux acc hl) t
+  in reverse_list (aux [] list)
+;; 
