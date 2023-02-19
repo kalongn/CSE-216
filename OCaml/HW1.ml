@@ -77,4 +77,9 @@ let goldbachpair n =
 in (aux (1) (n-1))
 ;;
 
+(*Q7*)
+let rec identical_on f g list = match list with
+  | [] -> true
+  | h::t -> if((f h) = (g h)) then (identical_on f g t) else false
+;;
 
