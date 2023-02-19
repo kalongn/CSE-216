@@ -83,3 +83,11 @@ let rec identical_on f g list = match list with
   | h::t -> if((f h) = (g h)) then (identical_on f g t) else false
 ;;
 
+(*Q8*)
+let pairwisefilter cmp list = 
+  let rec aux acc cmp list = match list with
+  | [] -> acc
+  | [h] -> acc@[h]
+  | x1::x2::xs -> (cmp x1 x2)::(aux acc cmp xs)
+in aux [] cmp list
+;;
