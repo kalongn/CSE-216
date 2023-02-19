@@ -55,3 +55,26 @@ let slice list begin_index end_index =
   | h::t -> if(begin_index > 0) then (aux acc t (begin_index-1) end_index) else if(end_index > 0) then h::(aux acc t 0 (end_index-1)) else acc
 in aux [] list begin_index (end_index-2)
 ;;
+
+(*Q5*)
+(*let equiv f list = 
+  let rec aux acc f list = match list with
+  | [] -> acc
+  | h::t -> match acc with
+    | [] -> [h]::acc
+    | 
+;;*)
+
+(*Q6*)
+let isPrime n = 
+  let n = abs n in
+    let rec isNotADivisor divisor =
+      divisor * divisor > n || (n mod divisor <> 0 && isNotADivisor (divisor + 1)) in
+    n <> 1 && isNotADivisor 2
+;;
+let goldbachpair n =
+  let rec aux beginN endN = if(isPrime beginN && isPrime endN) then (beginN, endN) else (aux (beginN+1) (endN-1))
+in (aux (1) (n-1))
+;;
+
+
