@@ -33,3 +33,9 @@ let rec float_pow x n = match n with
   | 1 -> x
   | _ -> x *. (float_pow x (n-1))
 ;;
+
+(*Q2*)
+let rec compress list = match list with
+  | x1::x2::xs -> if(x1=x2) then (compress (x2::xs)) else x1::(compress (x2::xs))
+  | _ -> list
+;;
