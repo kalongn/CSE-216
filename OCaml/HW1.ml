@@ -39,3 +39,19 @@ let rec compress list = match list with
   | x1::x2::xs -> if(x1=x2) then (compress (x2::xs)) else x1::(compress (x2::xs))
   | _ -> list
 ;;
+
+(*Q3*)
+let remove_if list f =
+  let rec aux acc list = match list with
+    | [] -> acc
+    | h::t -> if(not(f(h))) then h::(aux acc t) else (aux acc t)
+  in aux [] list
+;;
+
+(*Q4*)
+let slice list begin_index end_index = 
+  let rec aux acc list begin_index end_index = match list with
+  | [] -> acc
+  | h::t -> if(begin_index > 0) then (aux acc t (begin_index-1) end_index) else if(end_index > 0) then h::(aux acc t 0 (end_index-1)) else acc
+in aux [] list begin_index (end_index-2)
+;;
