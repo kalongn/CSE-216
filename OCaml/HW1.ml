@@ -59,8 +59,8 @@ let remove_if list f =
 let slice list begin_index end_index = 
   let rec aux acc list begin_index end_index = match list with
   | [] -> acc
-  | h::t -> if(begin_index > 0) then (aux acc t (begin_index-1) end_index) else if(end_index > 0) then h::(aux acc t 0 (end_index-1)) else acc
-in aux [] list begin_index (end_index-2)
+  | h::t -> if(begin_index > 0) then (aux acc t (begin_index-1) (end_index-1)) else if(end_index > 0) then h::(aux acc t 0 (end_index-1)) else acc
+in aux [] list begin_index end_index
 ;;
 
 (*Q5*)
