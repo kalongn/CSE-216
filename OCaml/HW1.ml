@@ -23,6 +23,11 @@ let filter_list f list =
   in aux [] list
 ;;
 
+let rec exist_list f list = match list with
+  | [] -> false
+  | h::t -> if(f(h)) then true else exist_list f t
+;;
+
 (*Q1*)
 let rec pow x n = match n with
   | 0 -> 1
@@ -58,14 +63,18 @@ let slice list begin_index end_index =
 in aux [] list begin_index (end_index-2)
 ;;
 
-(*Q5*)
-(*let equiv f list = 
+(*Q5*)(*Issue right now is that this currently only check the h2 first item in acc list and not the t2 part of acc*)
+let equivs f list = 
   let rec aux acc f list = match list with
   | [] -> acc
   | h::t -> match acc with
-    | [] -> [h]::acc
-    | 
-;;*)
+    | [] -> (aux ([[h]]@acc) f t)
+    | h2::t2 -> match h2 with
+      | [] -> (aux ([[h]]@acc) f t)
+      | _ -> if(exist_list (f h) h2) then (aux (acc@[[h]@h2]) f t) else (aux (acc@[[h]]) f t) 
+      (*| h3::t3 -> if(f h h3) then (aux (acc@[([h]@[h3])@t3]) f t) else (aux (acc@[[h]]) ) f t*)
+in aux [] f list
+;;
 
 (*Q6*)
 let isPrime n = 
