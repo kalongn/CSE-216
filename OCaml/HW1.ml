@@ -70,10 +70,8 @@ let equivs f list =
   | h::t -> match acc with
     | [] -> (aux ([[h]]@acc) f t)
     | h2::t2 -> match h2 with
-      | [] -> (aux ([[h]]@acc) f t)
       | _ -> if(exist_list (f h) h2) then (aux (acc@[[h]@h2]) f t) else (aux (acc@[[h]]) f t) 
-      (*| h3::t3 -> if(f h h3) then (aux (acc@[([h]@[h3])@t3]) f t) else (aux (acc@[[h]]) ) f t*)
-in aux [] f list
+  in aux [] f list
 ;;
 
 (*Q6*)
