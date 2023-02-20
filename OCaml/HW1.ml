@@ -58,9 +58,9 @@ let remove_if list f =
 (*Q4*)
 let slice list begin_index end_index = 
   let rec aux acc list begin_index end_index = match list with
-  | [] -> acc
-  | h::t -> if(begin_index > 0) then (aux acc t (begin_index-1) (end_index-1)) else if(end_index > 0) then h::(aux acc t 0 (end_index-1)) else acc
-in aux [] list begin_index end_index
+    | [] -> acc
+    | h::t -> if(begin_index > 0) then (aux acc t (begin_index-1) (end_index-1)) else if(end_index > 0) then h::(aux acc t 0 (end_index-1)) else acc
+  in aux [] list begin_index end_index
 ;;
 
 (*Q5*)
@@ -80,12 +80,12 @@ let equivs f list =
 let isPrime n = 
   let n = abs n in
     let rec isNotADivisor divisor =
-      divisor * divisor > n || (n mod divisor <> 0 && isNotADivisor (divisor + 1)) in
-    n <> 1 && isNotADivisor 2
+      divisor * divisor > n || (n mod divisor <> 0 && isNotADivisor (divisor + 1)) 
+    in n <> 1 && isNotADivisor 2
 ;;
 let goldbachpair n =
   let rec aux beginN endN = if(isPrime beginN && isPrime endN) then (beginN, endN) else (aux (beginN+1) (endN-1))
-in (aux (1) (n-1))
+  in (aux (1) (n-1))
 ;;
 
 (*Q7*)
@@ -97,10 +97,10 @@ let rec identical_on f g list = match list with
 (*Q8*)
 let pairwisefilter cmp list = 
   let rec aux acc cmp list = match list with
-  | [] -> acc
-  | [h] -> acc@[h]
-  | x1::x2::xs -> (cmp x1 x2)::(aux acc cmp xs)
-in aux [] cmp list
+    | [] -> acc
+    | [h] -> acc@[h]
+    | x1::x2::xs -> (cmp x1 x2)::(aux acc cmp xs)
+  in aux [] cmp list
 ;;
 
 
