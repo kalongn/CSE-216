@@ -25,11 +25,13 @@ let filter_list f list =
 
 (*Q1*)
 let rec pow x n = match n with
+  | 0 -> 1
   | 1 -> x
   | _ -> x * (pow x (n-1))
 ;;
 
 let rec float_pow x n = match n with
+  | 0 -> 1.0
   | 1 -> x
   | _ -> x *. (float_pow x (n-1))
 ;;
