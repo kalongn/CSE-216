@@ -91,3 +91,40 @@ let pairwisefilter cmp list =
   | x1::x2::xs -> (cmp x1 x2)::(aux acc cmp xs)
 in aux [] cmp list
 ;;
+
+
+(*Q9*)
+(*let polynomial list x =
+  let rec aux total list x = match list with
+  | [] -> total
+  | (coef,expo)::t -> (aux (total+(coef*(pow (x) (expo)))) t x)
+in aux 0 list x
+;;*)
+
+let polynomial_float list x = 
+  fold_left_list (fun total (coef, expo) -> total +. (coef *. (x ** expo)) ) (0.0) (list)
+;;
+
+let polynomial_int list x = 
+  fold_left_list (fun total (coef, expo) -> total + (coef * (pow (x) (expo))) ) (0) (list)
+;;
+
+
+
+print_float (polynomial_float [3.0, 3.0; -2.0, 1.0; 5.0, 0.0] 2.0);;
+print_endline "\n";;
+print_int (pow 2 4);;
+print_endline "\n";;
+print_int (polynomial_int [3, 3; -2, 1; 5, 0] 2);;
+
+
+(*Q10*)
+
+(*let powerset list = 
+  let aux acc list = match list with
+    | [] -> acc
+    | h::t ->  match t with
+      | [] -> acc@[[h];[]]
+      | h2::t -> 
+*)
+(*[], [h] [h::t1] [h::t1::t2]*)
