@@ -108,12 +108,7 @@ let polynomial list x =
 
 
 (*Q10*)
-
-(*let powerset list = 
-  let aux acc list = match list with
-    | [] -> acc
-    | h::t ->  match t with
-      | [] -> acc@[[h];[]]
-      | h2::t -> 
-*)
-(*[], [h] [h::t1] [h::t1::t2]*)
+let rec powerset list = match list with
+  | [] -> [[]]
+  | h::t -> let set = powerset t in set@(map_list (fun indSet -> h::indSet) set) 
+;;
