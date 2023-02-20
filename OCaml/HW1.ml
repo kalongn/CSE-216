@@ -63,14 +63,16 @@ let slice list begin_index end_index =
 in aux [] list begin_index (end_index-2)
 ;;
 
-(*Q5*)(*Issue right now is that this currently only check the h2 first item in acc list and not the t2 part of acc*)
+(*Q5*)
 let equivs f list = 
   let rec aux acc f list = match list with
   | [] -> acc
   | h::t -> match acc with
     | [] -> (aux ([[h]]@acc) f t)
-    | h2::t2 -> match h2 with
-      | _ -> if(exist_list (f h) h2) then (aux (acc@[[h]@h2]) f t) else (aux (acc@[[h]]) f t) 
+    | h2::t2 -> if(exist_list (f h) h2) then (aux (t2@[h2@[h]]) f t) else let rec aux2 llist = match llist with
+        | [] -> (aux (acc@[[h]]) f t)
+        | h3::t3 -> if(exist_list (f h) h3) then (aux (t2@[h3@[h]]) f t) else (aux2 t3) 
+    in aux2 t2 
   in aux [] f list
 ;;
 
