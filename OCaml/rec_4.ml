@@ -30,3 +30,18 @@ let rec nodes_and_leaves tree = match tree with
 nodes_and_leaves (Tree {operator = "+"; left = Leaf 10; right = Leaf 12});;
 nodes_and_leaves (Tree {operator = "+"; left = Tree {operator = "-"; left = Leaf 10; right = Leaf 20}; right =Tree {operator = "-"; left = Leaf 30; right = Leaf 40}});;
 
+(*Q3*)
+type 'a binary_tree =
+	| Empty (*Empty of 'a if you want data in the leaf node*)
+	| Node of 'a * 'a binary_tree * 'a binary_tree
+;;
+
+let rec num_of_leaves tree = match tree with
+  | Empty -> 1
+  | Node(x,l,r) -> (num_of_leaves l)+(num_of_leaves r)
+;;
+
+let rec get_all_leaves tree = match tree with
+| Empty -> [Empty]
+| Node(x,l,r) -> (get_all_leaves l)@(get_all_leaves r)
+;;
