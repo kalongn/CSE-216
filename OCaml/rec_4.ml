@@ -26,3 +26,7 @@ let rec nodes_and_leaves tree = match tree with
     let (left_nodes, left_leaves) = nodes_and_leaves x 
     and (right_nodes, right_leaves) = nodes_and_leaves y
   in (op :: left_nodes @ right_nodes, left_leaves @ right_leaves);;
+
+nodes_and_leaves (Tree {operator = "+"; left = Leaf 10; right = Leaf 12});;
+nodes_and_leaves (Tree {operator = "+"; left = Tree {operator = "-"; left = Leaf 10; right = Leaf 20}; right =Tree {operator = "-"; left = Leaf 30; right = Leaf 40}});;
+
