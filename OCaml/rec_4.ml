@@ -1,9 +1,13 @@
 (*Define a list*)
-type 'a list = Nil | Cons of 'a * 'a list;;
+type 'a list =  
+  | Nil 
+  | Cons of 'a * 'a list
+;;
 let mylist = Cons(1,Cons(2,Nil));;
 let rec length list = match list with
   | Nil -> 0
-  | Cons(x,y) -> 1 + length y;;
+  | Cons(x,y) -> 1 + length y
+;;
 
 (*Q1*)
 type ('a,'b) tree =
@@ -16,8 +20,20 @@ and
   right: ('a,'b) tree
 };;
 
-(*Variant type, or (tree here)*)
-(*Record type, and (node here)*)
+(*Variant type, or (tree here ^)*)
+(*Record type, and (node here ^)*)
+(*
+Extra Notes:
+  Sum Types vs Product Types
+  Variants | records/ tuples
+*)
+(*
+type t =
+  | C1 ot t1
+;;
+Variant constructors must start with a capital letter
+ - Can include optional data carried by the constructor (See Empty below v)
+*)
 
 (*Q2*)
 let rec nodes_and_leaves tree = match tree with
