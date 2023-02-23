@@ -1,15 +1,13 @@
-let minValue list =
-  let rec aux list min = match list with
-  | [] -> min
-  | h::t -> if(h < min) then (aux t h) else (aux t min)
-in aux list max_int
-;; 
-
-let selectionSort list = 
-  let rec aux acc list = match list with
-  | [] -> acc
-  | h::t -> if(h < minValue t) then (aux (acc@[h]) t) else (aux (acc@[minValue t]) t)
-in aux [] list
+let rec selection_sort l =
+  let rec getMin list = match list with
+    | [] -> failwith " Empty "
+    | [m] -> m
+    | h::t -> min h (getMin t)
+  in let rec removeMin m list = match list with
+      | [] -> failwith " Empty "
+      | h::t -> if (h = m) then t else h::(removeMin m t)
+    in let rec sort list = match list with 
+        | [] -> []
+        | liste -> let min_val = getMin liste in min_val::(sort(removeMin min_val liste))
+in sort l
 ;;
-
-(*Could implement the minValue method into returning the index too? so it remove it from the tail list in the sort method*)
