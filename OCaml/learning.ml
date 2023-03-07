@@ -115,3 +115,9 @@ let rotate list n =
   | h::t -> if(n > 0) then (aux (acc@[h]) t (n-1))else (h::t)@acc
 in aux [] list n
 ;;
+
+(*Remove the K'th element from a list.*)
+let rec remove_at k list = match list with
+  | [] -> failwith "Wrong indexes"
+  | h::t -> if(k = 0) then t else h::(remove_at (k-1) t)
+;;
