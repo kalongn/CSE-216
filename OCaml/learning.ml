@@ -129,3 +129,11 @@ let insert_at ins k list =
   | h::t -> if(k=0) then acc@[ins]@(h::t) else (aux (acc@[h]) ins (k-1) t)
 in aux [] ins k list
 ;;
+
+(*Create a List Containing All Integers Within a Given Range*)
+let range beginNum endNum = 
+  let rec aux acc beginNum endNum = match beginNum = endNum with
+  | false -> if (beginNum > endNum) then (aux (acc@[beginNum]) (beginNum-1) endNum) else (aux (acc@[beginNum]) (beginNum+1) endNum)
+  | true ->  acc@[endNum]
+in aux [] beginNum endNum
+;;
