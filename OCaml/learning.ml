@@ -121,3 +121,11 @@ let rec remove_at k list = match list with
   | [] -> failwith "Wrong indexes"
   | h::t -> if(k = 0) then t else h::(remove_at (k-1) t)
 ;;
+
+(*Insert an Element at a Given Position Into a List*)
+let insert_at ins k list = 
+  let rec aux acc ins k list = match list with
+  | [] -> acc@[ins]
+  | h::t -> if(k=0) then acc@[ins]@(h::t) else (aux (acc@[h]) ins (k-1) t)
+in aux [] ins k list
+;;
