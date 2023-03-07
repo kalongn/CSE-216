@@ -107,3 +107,11 @@ let encode list =
     | a :: (b :: _ as t) -> if a = b then aux (count + 1) acc t else aux 0 ((count + 1, a) :: acc) t 
   in List.rev (aux 0 [] list)
 ;;
+
+(*Rotate a list N places to the left.*)
+let rotate list n = 
+  let rec aux acc list n = match list with
+  | [] -> acc
+  | h::t -> if(n > 0) then (aux (acc@[h]) t (n-1))else (h::t)@acc
+in aux [] list n
+;;
