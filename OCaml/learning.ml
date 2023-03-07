@@ -54,7 +54,18 @@ let flatten_list list =
 
 (*Q8*)
 let rec compress list = match list with
-| x1::x2::xs -> if(x1 = x2) then (compress (x2::xs)) else x1::(compress (x2::xs))
-| [x] -> [x]
-| [] -> []
+  | x1::x2::xs -> if(x1 = x2) then (compress (x2::xs)) else x1::(compress (x2::xs))
+  | [x] -> [x]
+  | [] -> []
+;;
+
+(*Q9*)
+let pack list =
+  let rec aux current acc = function
+    | [] -> []    (* Can only be reached if original list is empty *)
+    | [x] -> (x :: current) :: acc
+    | a :: (b :: _ as t) ->
+       if a = b then aux (a :: current) acc t
+       else aux [] ((a :: current) :: acc) t  in
+  List.rev (aux [] [] list)
 ;;
