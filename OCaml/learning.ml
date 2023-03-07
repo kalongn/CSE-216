@@ -51,3 +51,10 @@ let flatten_list list =
     | Many hl::t -> aux (aux acc hl) t
   in reverse_list (aux [] list)
 ;; 
+
+(*Q8*)
+let rec compress list = match list with
+| x1::x2::xs -> if(x1 = x2) then (compress (x2::xs)) else x1::(compress (x2::xs))
+| [x] -> [x]
+| [] -> []
+;;
