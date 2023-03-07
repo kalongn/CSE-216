@@ -61,7 +61,7 @@ let rec compress list = match list with
 
 (*Q9*)
 let pack list =
-  let rec aux current acc = function
+  let rec aux current acc list = match list with
     | [] -> []    (* Can only be reached if original list is empty *)
     | [x] -> (x :: current) :: acc
     | a :: (b :: _ as t) ->
@@ -69,3 +69,12 @@ let pack list =
        else aux [] ((a :: current) :: acc) t  in
   List.rev (aux [] [] list)
 ;;
+
+(*Q10*)
+let encode list =
+  let rec aux count acc list = match list with
+    | [] -> [] (* Can only be reached if original list is empty *)
+    | [x] -> (count + 1, x) :: acc
+    | a :: (b :: _ as t) -> if a = b then aux (count + 1) acc t
+                            else aux 0 ((count + 1, a) :: acc) t in
+  List.rev (aux 0 [] list);;
