@@ -174,12 +174,24 @@ let rec is_mirror leftTree rightTree = match leftTree, rightTree with
 (*Check if 2 binary is structurally mirr of each other*)
 let rec is_mirror_structure leftTree righTree = match leftTree, righTree with
   | Empty, Empty -> true
-  | Node(_, ll, lr), Node(_, rl, rr) -> (is_mirror ll rr) && (is_mirror rl lr)
+  | Node(_, ll, lr), Node(_, rl, rr) -> (is_mirror_structure ll rr) && (is_mirror_structure rl lr)
   | _ -> false
 ;;
 
 (*Determine if the a binary tree is symmetric or not*)
 let is_symmetric tree = match tree with
   | Empty -> true
-  | Node(_, l, r) -> is_mirror l r
+  | Node(_, l, r) -> is_mirror_structure l r
+;;
+
+let rec insert tree x = match tree with
+  | Empty -> Node(x, Empty, Empty)
+  | Node(h, l ,r ) -> if (x = h) then tree else if(x > h) then Node(h, l, (insert r x)) else Node(h, (insert l x), r)
+;;
+
+let construct list = 
+  let rec aux list currTree = match list with
+  | [] -> currTree
+  | h::t -> (aux t (insert currTree h))
+in aux list Empty
 ;;
