@@ -14,7 +14,7 @@ let rec get_all_leaves tree = match tree with
 ;;
 
 let rec depthOfTree tree = match tree with
-| Empty -> 1
+| Empty -> 0
 | Node(x,l,r) -> if( (depthOfTree l)) >= (depthOfTree r) then (1 + depthOfTree l) else (1 + depthOfTree r)
 ;;
 
