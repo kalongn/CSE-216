@@ -28,24 +28,24 @@ let rec exist_list f list = match list with
   | h::t -> if(f(h)) then true else exist_list f t
 ;;
 
-(*Q1*)
+(*Tail of a List*)
 let rec last list = match list with
   | [] -> None
   | h::[] -> Some h
   | h::t -> last t;;
 
-(*Q2*)
+(*Last Two Elements of a List*)
 let rec last_two list = match list with
   | [] | [_] -> None
   | [x; y] -> Some (x,y)
   | _ :: t -> last_two t;;
 
-(*Q3*)
+(*N'th Element of a List*)
 let rec atNth list index = match list with
   | [] -> None
   | h::t -> if index = 0 then Some (h) else atNth t (index-1);;
 
-(*Q4*)
+(*Length of a List*)
 (*Non tail-recursive method*)
 let rec length_non_tail list = match list with
 | [] -> 1
@@ -57,7 +57,7 @@ let length_tail list =
     | h::t -> aux (n+1) t
 in aux 0 list;;
 
-(*Q5*)
+(*Reverse a List*)
 let reverse_list list =
   let rec aux acc list = match list with
     | [] -> acc
@@ -65,12 +65,12 @@ let reverse_list list =
   in aux [] list
 ;;
 
-(*Q6*)
+(*Palindrome*)
 let pallindrome list =
   list = reverse_list list
 ;;
 
-(*Q7*)
+(*Flatten a List*)
 type 'a node =
   | One of 'a 
   | Many of 'a node list
@@ -82,14 +82,14 @@ let flatten_list list =
   in reverse_list (aux [] list)
 ;; 
 
-(*Q8*)
+(*Eliminate Duplicates*)
 let rec compress list = match list with
   | x1::x2::xs -> if(x1 = x2) then (compress (x2::xs)) else x1::(compress (x2::xs))
   | [x] -> [x]
   | [] -> []
 ;;
 
-(*Q9*)
+(*Pack Consecutive Duplicates*)
 let pack list =
   let rec aux current acc list = match list with
     | [] -> []    (* Can only be reached if original list is empty *)
@@ -99,7 +99,7 @@ let pack list =
   in List.rev (aux [] [] list)
 ;;
 
-(*Q10*)
+(*Run-Length Encoding*)
 let encode list =
   let rec aux count acc list = match list with
     | [] -> [] (* Can only be reached if original list is empty *)
@@ -136,4 +136,50 @@ let range beginNum endNum =
   | false -> if (beginNum > endNum) then (aux (acc@[beginNum]) (beginNum-1) endNum) else (aux (acc@[beginNum]) (beginNum+1) endNum)
   | true ->  acc@[endNum]
 in aux [] beginNum endNum
+;;
+
+(*Tree Stuff*)
+
+(*Generic Binary tree Variant type*)
+type 'a binary_tree =
+  | Empty
+  | Node of 'a * 'a binary_tree * 'a binary_tree
+;;
+
+(*Count all leaves*)
+let rec num_of_leaves tree = match tree with
+  | Empty -> 1
+  | Node(x,l,r) -> (num_of_leaves l)+(num_of_leaves r)
+;;
+
+(*Get all Leaf nodes*)
+let rec get_all_leaves tree = match tree with
+  | Empty -> [Empty]
+  | Node(x,l,r) -> (get_all_leaves l)@(get_all_leaves r)
+;;
+
+(*Get the depth of Tree*)
+let rec depthOfTree tree = match tree with
+  | Empty -> 0
+  | Node(x,l,r) -> if( (depthOfTree l)) >= (depthOfTree r) then (1 + depthOfTree l) else (1 + depthOfTree r)
+;;
+
+(*Check if 2 binary tree is mirror of each other, including the value the nodes is carrying.*)
+let rec is_mirror leftTree rightTree = match leftTree, rightTree with
+  | Empty, Empty -> true
+  | Node(lx, ll, lr), Node(rx, rl,rr) -> (lx = rx) && (is_mirror ll rr) && (is_mirror lr rl)
+  | _ -> false
+;;
+
+(*Check if 2 binary is structurally mirr of each other*)
+let rec is_mirror_structure leftTree righTree = match leftTree, righTree with
+  | Empty, Empty -> true
+  | Node(_, ll, lr), Node(_, rl, rr) -> (is_mirror ll rr) && (is_mirror rl lr)
+  | _ -> false
+;;
+
+(*Determine if the a binary tree is symmetric or not*)
+let is_symmetric tree = match tree with
+  | Empty -> true
+  | Node(_, l, r) -> is_mirror l r
 ;;
