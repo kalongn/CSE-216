@@ -53,6 +53,8 @@ public class Square extends Shape {
         this.d = d;
     }
 
+    // My Own implement method
+
     private static double edgesLength(Point p1, Point p2) {
         if (p1.x == p2.x && p1.y == p2.y) {
             return 0.0;
