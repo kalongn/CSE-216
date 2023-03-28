@@ -89,9 +89,10 @@ public class RadialGraph extends Shape {
     }
 
     private static double round(double value) {
-        String result = String.format("%.2f", value);
-
-        return Double.parseDouble(result);
+        value *= 100;
+        value = (double)((int) value);
+        value /= 100;
+        return value;
     }
 
     /*
