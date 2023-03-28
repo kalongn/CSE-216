@@ -53,7 +53,8 @@ public class RadialGraph extends Shape {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < neighbors.size(); i++) {
-            sb.append(neighbors.get(i).toString());
+            Point rounded = new Point(neighbors.get(i).name, round(neighbors.get(i).x), round(neighbors.get(i).y));
+            sb.append(rounded.toString());
             if (i != neighbors.size() - 1) {
                 sb.append(",");
             }
@@ -69,13 +70,13 @@ public class RadialGraph extends Shape {
     // My Own implement method
 
     private static Point rotatePoint(Point p, int degrees) {
-        double newX = round(p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees)));
-        double newY = round(p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees)));
+        double newX = p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees));
+        double newY = p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees));
         return new Point(p.name, newX, newY);
     }
 
     private static Point translatePoint(Point p, double x, double y) {
-        return new Point(p.name, round(p.x + x), round(p.y + y));
+        return new Point(p.name, p.x + x, p.y + y);
     }
 
     private boolean isAllEdgesSameLength(List<Point> neighbors) {
