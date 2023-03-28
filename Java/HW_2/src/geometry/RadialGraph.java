@@ -27,31 +27,24 @@ public class RadialGraph extends Shape {
             return this;
         }
         List<Point> newNeightbors = new ArrayList<>();
-        double tolerance = 1e-16, newX, newY;
+        double newX, newY;
         for (Point i : this.neighbors) {
-            newX = i.x * Math.cos(Math.toRadians(degrees)) - i.y * Math.sin(Math.toRadians(degrees));
-            newY = i.x * Math.sin(Math.toRadians(degrees)) + i.y * Math.cos(Math.toRadians(degrees));
-            if (tolerance > Math.abs(newX)) {
-                newX = 0.0;
-            }
-            if (tolerance > Math.abs(newY)) {
-                newY = 0.0;
-            }
+            newX = round(i.x * Math.cos(Math.toRadians(degrees)) - i.y * Math.sin(Math.toRadians(degrees)));
+            newY = round(i.x * Math.sin(Math.toRadians(degrees)) + i.y * Math.cos(Math.toRadians(degrees)));
             newNeightbors.add(new Point(i.name, newX, newY));
-
         }
         return new RadialGraph(center, (List<Point>) newNeightbors);
     }
 
     @Override
     public RadialGraph translateBy(double x, double y) {
-        center = new Point(center.name, center.x + x, center.y + y);
+        center = new Point(center.name, round(center.x + x), round(center.y + y));
         if (neighbors == null) {
             return new RadialGraph(center);
         }
         List<Point> newNeightbors = new ArrayList<>();
         for (Point i : this.neighbors) {
-            newNeightbors.add(new Point(i.name, i.x + x, i.y + y));
+            newNeightbors.add(new Point(i.name, round(i.x + x), round(i.y + y)));
         }
         return new RadialGraph(center, (List<Point>) newNeightbors);
     }
@@ -76,7 +69,7 @@ public class RadialGraph extends Shape {
         return center;
     }
 
-    public boolean isAllEdgesSameLength(List<Point> neighbors) {
+    private boolean isAllEdgesSameLength(List<Point> neighbors) {
         if (neighbors == null || neighbors.size() <= 1) {
             return true;
         }
@@ -88,11 +81,17 @@ public class RadialGraph extends Shape {
         return true;
     }
 
-    public double edgesLengthFromCenter(Point node) {
+    private double edgesLengthFromCenter(Point node) {
         if (node.x == center.x && node.y == center.y) {
             return 0.0;
         }
         return Math.sqrt(Math.pow((node.x - center.x), 2) + Math.pow(node.y - center.y, 2));
+    }
+
+    private static double round(double value) {
+        String result = String.format("%.2f", value);
+
+        return Double.parseDouble(result);
     }
 
     /*
