@@ -27,24 +27,21 @@ public class RadialGraph extends Shape {
             return this;
         }
         List<Point> newNeightbors = new ArrayList<>();
-        double newX, newY;
         for (Point i : this.neighbors) {
-            newX = round(i.x * Math.cos(Math.toRadians(degrees)) - i.y * Math.sin(Math.toRadians(degrees)));
-            newY = round(i.x * Math.sin(Math.toRadians(degrees)) + i.y * Math.cos(Math.toRadians(degrees)));
-            newNeightbors.add(new Point(i.name, newX, newY));
+            newNeightbors.add(rotatePoint(i, degrees));
         }
         return new RadialGraph(center, (List<Point>) newNeightbors);
     }
 
     @Override
     public RadialGraph translateBy(double x, double y) {
-        center = new Point(center.name, round(center.x + x), round(center.y + y));
+        center = translatePoint(center, x, y);
         if (neighbors == null) {
             return new RadialGraph(center);
         }
         List<Point> newNeightbors = new ArrayList<>();
         for (Point i : this.neighbors) {
-            newNeightbors.add(new Point(i.name, round(i.x + x), round(i.y + y)));
+            newNeightbors.add(translatePoint(i, x, y));
         }
         return new RadialGraph(center, (List<Point>) newNeightbors);
     }
@@ -69,6 +66,18 @@ public class RadialGraph extends Shape {
         return center;
     }
 
+    // My Own implement method
+
+    private static Point rotatePoint(Point p, int degrees) {
+        double newX = round(p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees)));
+        double newY = round(p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees)));
+        return new Point(p.name, newX, newY);
+    }
+
+    private static Point translatePoint(Point p, double x, double y) {
+        return new Point(p.name, round(p.x + x), round(p.y + y));
+    }
+
     private boolean isAllEdgesSameLength(List<Point> neighbors) {
         if (neighbors == null || neighbors.size() <= 1) {
             return true;
@@ -90,7 +99,7 @@ public class RadialGraph extends Shape {
 
     private static double round(double value) {
         value *= 100;
-        value = (double)((int) value);
+        value = (double) ((int) value);
         value /= 100;
         return value;
     }
