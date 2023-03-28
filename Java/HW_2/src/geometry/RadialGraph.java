@@ -4,8 +4,8 @@ import java.util.*;
 
 public class RadialGraph extends Shape {
 
-    public Point center;
-    public List<Point> neighbors;
+    public final Point center;
+    public final List<Point> neighbors;
 
     public RadialGraph(Point center, List<Point> neighbors) {
         this.center = center;
@@ -35,7 +35,7 @@ public class RadialGraph extends Shape {
 
     @Override
     public RadialGraph translateBy(double x, double y) {
-        center = translatePoint(center, x, y);
+        Point newCenter = translatePoint(center, x, y);
         if (neighbors == null) {
             return new RadialGraph(center);
         }
@@ -43,7 +43,7 @@ public class RadialGraph extends Shape {
         for (Point i : this.neighbors) {
             newNeightbors.add(translatePoint(i, x, y));
         }
-        return new RadialGraph(center, (List<Point>) newNeightbors);
+        return new RadialGraph(newCenter, (List<Point>) newNeightbors);
     }
 
     @Override
