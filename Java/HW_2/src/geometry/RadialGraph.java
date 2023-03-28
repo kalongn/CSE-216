@@ -99,7 +99,7 @@ public class RadialGraph extends Shape {
 
     private static double round(double value) {
         value *= 100;
-        value = (double) ((int) value);
+        value = Math.round(value);
         value /= 100;
         return value;
     }
