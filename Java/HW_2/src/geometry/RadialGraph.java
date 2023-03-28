@@ -72,6 +72,20 @@ public class RadialGraph extends Shape {
     private static Point rotatePoint(Point p, int degrees) {
         double newX = p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees));
         double newY = p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees));
+
+        double lowerBoundTolerance = 1e-16, upperBoundTolerance = 0.9999999999999998;
+        if (lowerBoundTolerance > Math.abs(newX)) {
+            newX = 0.0;
+        }
+        if (upperBoundTolerance < Math.abs(newX)) {
+            newX = round(newX);
+        }
+        if (lowerBoundTolerance > Math.abs(newY)) {
+            newY = 0.0;
+        }
+        if (upperBoundTolerance < Math.abs(newY)) {
+            newY = round(newY);
+        }
         return new Point(p.name, newX, newY);
     }
 
@@ -95,7 +109,7 @@ public class RadialGraph extends Shape {
         if (node.x == center.x && node.y == center.y) {
             return 0.0;
         }
-        return Math.sqrt(Math.pow((node.x - center.x), 2) + Math.pow(node.y - center.y, 2));
+        return round(Math.sqrt(Math.pow((node.x - center.x), 2) + Math.pow(node.y - center.y, 2)));
     }
 
     private static double round(double value) {
