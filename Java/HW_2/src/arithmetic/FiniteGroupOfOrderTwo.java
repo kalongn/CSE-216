@@ -6,7 +6,12 @@ public class FiniteGroupOfOrderTwo implements Group<PlusOrMinusOne> {
 
     @Override
     public PlusOrMinusOne binaryOperation(PlusOrMinusOne one, PlusOrMinusOne other) {
-        return PlusOrMinusOne.multi(one, other);
+        switch (one.value * other.value) {
+            case 1:
+                return PlusOrMinusOne.PLUS_ONE;
+            default:
+                return PlusOrMinusOne.MINUS_ONE;
+        }
     }
 
     @Override

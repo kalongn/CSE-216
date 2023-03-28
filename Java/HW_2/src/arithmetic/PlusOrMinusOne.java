@@ -13,15 +13,7 @@ public enum PlusOrMinusOne {
         this.value = value;
     }
 
-    public static PlusOrMinusOne multi(PlusOrMinusOne one, PlusOrMinusOne two) {
-        switch (one.value * two.value) {
-            case 1:
-                return PlusOrMinusOne.PLUS_ONE;
-            default:
-                return PlusOrMinusOne.MINUS_ONE;
-        }
-    }
-
+    @Override
     public String toString() {
         return "" + this.value;
     }
