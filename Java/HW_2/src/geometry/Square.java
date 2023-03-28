@@ -53,28 +53,35 @@ public class Square extends Shape {
         this.d = d;
     }
 
-    // My Own implement method
+    // My Own implement methods
 
+    // modified this with Tolerance.
     private static double edgesLength(Point p1, Point p2) {
         if (p1.x == p2.x && p1.y == p2.y) {
             return 0.0;
         }
-        return round(Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow(p1.y - p2.y, 2)));
+        return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow(p1.y - p2.y, 2));
     }
 
     private boolean isValidSquare(Point a, Point b, Point c, Point d) {
-        if (edgesLength(a, b) == edgesLength(b, c)
-                && edgesLength(c, d) == edgesLength(d, a)
-                && edgesLength(b, c) == edgesLength(c, d)) {
-            return true;
+        if (!isValidSquareHelper(a, b, c) || !isValidSquareHelper(b, c, d) || !isValidSquareHelper(c, d, a)) {
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    private static boolean isValidSquareHelper(Point one, Point two, Point three) {
+        double tolerance = 0.01d;
+        if (Math.abs(edgesLength(one, two) - edgesLength(two, three)) > tolerance) {
+            return false;
+        }
+        return true;
     }
 
     private static Point rotatePoint(Point p, int degrees) {
         double newX = p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees));
         double newY = p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees));
-        double lowerBoundTolerance = 1e-16, upperBoundTolerance = 0.9999999999999998;
+        double lowerBoundTolerance = 1e-10, upperBoundTolerance = 0.9999999999;
         if (lowerBoundTolerance > Math.abs(newX)) {
             newX = 0.0;
         }

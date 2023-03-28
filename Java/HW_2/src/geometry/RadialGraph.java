@@ -67,13 +67,13 @@ public class RadialGraph extends Shape {
         return center;
     }
 
-    // My Own implement method
+    // My Own implement methods
 
     private static Point rotatePoint(Point p, int degrees) {
         double newX = p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees));
         double newY = p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees));
 
-        double lowerBoundTolerance = 1e-16, upperBoundTolerance = 0.9999999999999998;
+        double lowerBoundTolerance = 1e-10, upperBoundTolerance = 0.9999999999;
         if (lowerBoundTolerance > Math.abs(newX)) {
             newX = 0.0;
         }
@@ -97,19 +97,22 @@ public class RadialGraph extends Shape {
         if (neighbors == null || neighbors.size() <= 1) {
             return true;
         }
+        double tolerance = 0.0000001d;
         for (int i = 1; i < neighbors.size(); i++) {
-            if (edgesLengthFromCenter(neighbors.get(i)) != edgesLengthFromCenter(neighbors.get(i - 1))) {
+            if (Math.abs(edgesLengthFromCenter(neighbors.get(i))
+                    - edgesLengthFromCenter(neighbors.get(i - 1))) > tolerance) {
                 return false;
             }
         }
         return true;
     }
 
+    // modified this with Tolerance.
     private double edgesLengthFromCenter(Point node) {
         if (node.x == center.x && node.y == center.y) {
             return 0.0;
         }
-        return round(Math.sqrt(Math.pow((node.x - center.x), 2) + Math.pow(node.y - center.y, 2)));
+        return Math.sqrt(Math.pow((node.x - center.x), 2) + Math.pow(node.y - center.y, 2));
     }
 
     private static double round(double value) {
