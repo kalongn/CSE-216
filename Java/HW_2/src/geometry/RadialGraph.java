@@ -117,7 +117,7 @@ public class RadialGraph extends Shape {
         Point west = new Point("west", -1, 0);
         Point north = new Point("north", 0, 1);
         Point south = new Point("south", 0, -1);
-        // Point toofarsouth = new Point("south", 0, -2);
+        Point toofarsouth = new Point("south", 0, -2);
 
         // A single node is a valid radial graph.
         RadialGraph lonely = new RadialGraph(center);
@@ -127,7 +127,13 @@ public class RadialGraph extends Shape {
 
         // This line must throw IllegalArgumentException, since the edges will not be of
         // the same length
-        // RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
+
+        try {
+            RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
+            System.out.println(nope);
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Exception test passed.");
+        }
 
         Shape g = new RadialGraph(center, Arrays.asList(north, south, east, west));
 
