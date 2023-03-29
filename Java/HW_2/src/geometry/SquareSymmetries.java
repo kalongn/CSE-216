@@ -70,7 +70,7 @@ public class SquareSymmetries implements Symmetries<Square> {
             case 0:
                 return new Square(newB, newA, newD, newC);
             case 1:
-                return new Square(newC, newD, newA, newB);
+                return new Square(newD, newC, newB, newA);
             case 2:
                 return new Square(newC, newB, newA, newD);
             case 3:
