@@ -11,10 +11,16 @@ public class Square extends Shape {
 
     @Override
     public Square rotateBy(int degrees) {
+        Point center = getRealCenter();
+        double xOffset = center.x, yOffset = center.y;
+
         Point[] points = new Point[] { a, b, c, d };
         for (int i = 0; i < points.length; i++) {
+            points[i] = translatePoint(points[i], -1 * xOffset, -1 * yOffset);
             points[i] = rotatePoint(points[i], degrees);
+            points[i] = translatePoint(points[i], xOffset, yOffset);
         }
+
         return new Square(points[0], points[1], points[2], points[3]);
     }
 
@@ -54,6 +60,10 @@ public class Square extends Shape {
     }
 
     // My Own implement methods
+
+    private Point getRealCenter() {
+        return new Point("center", (a.x + c.x) / 2.0, round((a.y + c.y) / 2.0));
+    }
 
     // modified this with Tolerance.
     private static double edgesLength(Point p1, Point p2) {

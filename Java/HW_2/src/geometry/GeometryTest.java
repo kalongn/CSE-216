@@ -13,6 +13,7 @@ public class GeometryTest {
 
     public static void main(String... args) {
         testRadialGraphSymmetries();
+        System.out.println("---------------");
         testSquareSymmetries();
     }
 
@@ -38,6 +39,19 @@ public class GeometryTest {
         // toString() method)
         List<RadialGraph> symmetries = graphSymmetries.symmetriesOf(g1);
         for (RadialGraph g : symmetries) System.out.println(g);
+
+        Point centerTrig = new Point("center", 0,  Math.sqrt(3)/3);
+        Point topTrig = new Point("top", 0, Math.sqrt(3));
+        Point leftTrig = new Point("left", -1, 0);
+        Point rightTrig = new Point("right", 1, 0);
+        RadialGraph g5 = new RadialGraph(centerTrig, Arrays.asList(topTrig, leftTrig, rightTrig));
+        System.out.println(g5);
+        RadialGraph g6 = g5.rotateBy(120);
+        System.out.println(g6);
+        System.out.println(graphSymmetries.areSymmetric(g5, g6));
+
+        List<RadialGraph> symmetriesOfTrig = graphSymmetries.symmetriesOf(g5);
+        for (RadialGraph g : symmetriesOfTrig) System.out.println(g);
     }
 
     private static void testSquareSymmetries() {
@@ -45,13 +59,10 @@ public class GeometryTest {
                                 new Point("lower-left", 0, 0), new Point("lower-right", 1, 0));
         Square sq2 = sq1.rotateBy(30);
         Square sq3 = sq1.rotateBy(180);
-        Square sq4 = sq1.rotateBy(90);
-        // System.out.println(sq2);
+
         SquareSymmetries squareSymmetries = new SquareSymmetries();
         System.out.println(squareSymmetries.areSymmetric(sq1, sq2)); // must return false
         System.out.println(squareSymmetries.areSymmetric(sq1, sq3)); // must return true
-        System.out.println(squareSymmetries.areSymmetric(sq4, sq1));
-        System.out.println(squareSymmetries.areSymmetric(sq4, sq3));
 
         // obtain all the 8 symmetries (including the identity) of sq1, and print them one by one (remember that printing
         // will give the string representation of each square, which must follow the specification of Shape's toString()

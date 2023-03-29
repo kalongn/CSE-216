@@ -21,12 +21,7 @@ public class FiniteGroupOfOrderTwo implements Group<PlusOrMinusOne> {
 
     @Override
     public PlusOrMinusOne inverseOf(PlusOrMinusOne t) {
-        switch (t.value) {
-            case 1:
-                return PlusOrMinusOne.PLUS_ONE;
-            default:
-                return PlusOrMinusOne.MINUS_ONE;
-        }
+        return t;
     }
 
 }

@@ -27,8 +27,12 @@ public class RadialGraph extends Shape {
             return this;
         }
         List<Point> newNeightbors = new ArrayList<>();
-        for (Point i : this.neighbors) {
-            newNeightbors.add(rotatePoint(i, degrees));
+        double xOffset = center.x, yOffset = center.y;
+        for (int i = 0; i < neighbors.size(); i++) {
+            newNeightbors.add(rotatePoint(translatePoint(neighbors.get(i), -1 * xOffset, -1 * yOffset), degrees));
+        }
+        for (int i = 0; i < neighbors.size(); i++) {
+            newNeightbors.set(i, translatePoint(newNeightbors.get(i), xOffset, yOffset));
         }
         return new RadialGraph(center, (List<Point>) newNeightbors);
     }
@@ -48,8 +52,9 @@ public class RadialGraph extends Shape {
 
     @Override
     public String toString() {
+        Point roundedCenter = new Point("center", round(center.x), round(center.y));
         if (neighbors == null) {
-            return new StringJoiner(",", "[", "]").add(center.toString()).toString();
+            return new StringJoiner(",", "[", "]").add(roundedCenter.toString()).toString();
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < neighbors.size(); i++) {
@@ -59,7 +64,7 @@ public class RadialGraph extends Shape {
                 sb.append(",");
             }
         }
-        return new StringJoiner(",", "[", "]").add(center.toString()).add(sb.toString()).toString();
+        return new StringJoiner(",", "[", "]").add(roundedCenter.toString()).add(sb.toString()).toString();
     }
 
     @Override
@@ -95,9 +100,6 @@ public class RadialGraph extends Shape {
 
     // modified this with Tolerance.
     private double edgesLengthFromCenter(Point node) {
-        if (node.x == center.x && node.y == center.y) {
-            return 0.0;
-        }
         return Math.sqrt(Math.pow((node.x - center.x), 2) + Math.pow(node.y - center.y, 2));
     }
 
