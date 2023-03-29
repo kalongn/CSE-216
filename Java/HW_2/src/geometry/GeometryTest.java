@@ -18,6 +18,8 @@ public class GeometryTest {
     }
 
     private static void testRadialGraphSymmetries() {
+
+        //4 side
         Point center = new Point("center", 0, 0);
         Point east   = new Point("east", 1, 0);
         Point west   = new Point("west", -1, 0);
@@ -40,6 +42,7 @@ public class GeometryTest {
         List<RadialGraph> symmetries = graphSymmetries.symmetriesOf(g1);
         for (RadialGraph g : symmetries) System.out.println(g);
 
+        //3 side
         Point centerTrig = new Point("center", 0,  Math.sqrt(3)/3);
         Point topTrig = new Point("top", 0, Math.sqrt(3));
         Point leftTrig = new Point("left", -1, 0);
@@ -52,11 +55,34 @@ public class GeometryTest {
 
         List<RadialGraph> symmetriesOfTrig = graphSymmetries.symmetriesOf(g5);
         for (RadialGraph g : symmetriesOfTrig) System.out.println(g);
+
+
+        //5 side
+        double c1= Math.cos(2*Math.PI / 5);
+        double c2= Math.cos(Math.PI / 5);
+        double s1 = Math.sin(2*Math.PI / 5);
+        double s2 = Math.sin(4*Math.PI / 5);
+
+        Point centerPentagon = new Point("center", 0, 0);
+        Point first = new Point("one", 0,1);
+        Point second = new Point("two", s1, c1);
+        Point third = new Point("three", s2, -1.0*c2);
+        Point fouth = new Point("fouth", -1.0*s2, -1.0*c2);
+        Point fifth = new Point("fifth", -1.0*s1, c1);
+
+        RadialGraph g7 = new RadialGraph(centerPentagon, Arrays.asList(first,second,third,fouth,fifth));
+        System.out.println(g7);
+        RadialGraph g8 = g7.rotateBy(72);
+        RadialGraph g9 = g7.rotateBy(80);
+        System.out.println(g8);
+        System.out.println(g9);
+        System.out.println(graphSymmetries.areSymmetric(g8, g9));
+        System.out.println(graphSymmetries.areSymmetric(g8, g7));
     }
 
     private static void testSquareSymmetries() {
-        Square sq1 = new Square(new Point("upper-right", 1, 1), new Point("upper-left", 0, 1),
-                                new Point("lower-left", 0, 0), new Point("lower-right", 1, 0));
+        Square sq1 = new Square(new Point("2", 1, 1), new Point("1", 0, 1),
+                                new Point("4", 0, 0), new Point("3", 1, 0));
         Square sq2 = sq1.rotateBy(30);
         Square sq3 = sq1.rotateBy(180);
 
