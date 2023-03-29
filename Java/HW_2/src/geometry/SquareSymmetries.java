@@ -9,13 +9,7 @@ public class SquareSymmetries implements Symmetries<Square> {
     public boolean areSymmetric(Square s1, Square s2) {
         List<Square> allSymmetries = symmetriesOf(s1);
         for (Square i : allSymmetries) {
-            int z = 0;
-            innerloop: for (; z < 4; z++) {
-                if (i.a.x != s2.a.x || i.a.y != s2.a.y) {
-                    break innerloop;
-                }
-            }
-            if (z == 4) {
+            if (isSquareAboutTheSame(i, s2)) {
                 return true;
             }
         }
@@ -31,6 +25,23 @@ public class SquareSymmetries implements Symmetries<Square> {
     }
 
     // My Own implement methods
+
+    private static boolean isSquareAboutTheSame(Square one, Square two) {
+        double tolerance = 1e-10;
+        if (Math.abs(one.a.x - two.a.x) > tolerance || Math.abs(one.a.y - two.a.y) > tolerance) {
+            return false;
+        }
+        if (Math.abs(one.b.x - two.b.x) > tolerance || Math.abs(one.b.y - two.b.y) > tolerance) {
+            return false;
+        }
+        if (Math.abs(one.c.x - two.c.x) > tolerance || Math.abs(one.c.y - two.c.y) > tolerance) {
+            return false;
+        }
+        if (Math.abs(one.d.x - two.d.x) > tolerance || Math.abs(one.d.y - two.d.y) > tolerance) {
+            return false;
+        }
+        return true;
+    }
 
     private static List<Square> rotationSymmetriesOf(Square s) {
         final int FULL_ANGLE = 360;

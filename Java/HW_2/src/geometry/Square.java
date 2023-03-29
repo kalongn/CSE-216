@@ -71,7 +71,7 @@ public class Square extends Shape {
     }
 
     private static boolean isValidSquareHelper(Point one, Point two, Point three) {
-        double tolerance = 0.01d;
+        double tolerance = 1e-10;
         if (Math.abs(edgesLength(one, two) - edgesLength(two, three)) > tolerance) {
             return false;
         }
@@ -81,19 +81,6 @@ public class Square extends Shape {
     private static Point rotatePoint(Point p, int degrees) {
         double newX = p.x * Math.cos(Math.toRadians(degrees)) - p.y * Math.sin(Math.toRadians(degrees));
         double newY = p.x * Math.sin(Math.toRadians(degrees)) + p.y * Math.cos(Math.toRadians(degrees));
-        double lowerBoundTolerance = 1e-10, upperBoundTolerance = 0.9999999999;
-        if (lowerBoundTolerance > Math.abs(newX)) {
-            newX = 0.0;
-        }
-        if (upperBoundTolerance < Math.abs(newX)) {
-            newX = round(newX);
-        }
-        if (lowerBoundTolerance > Math.abs(newY)) {
-            newY = 0.0;
-        }
-        if (upperBoundTolerance < Math.abs(newY)) {
-            newY = round(newY);
-        }
         return new Point(p.name, newX, newY);
     }
 

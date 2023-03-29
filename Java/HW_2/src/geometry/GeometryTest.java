@@ -29,9 +29,9 @@ public class GeometryTest {
         RadialGraph g4 = g1.rotateBy(180);
 
         RadialGraphSymmetries graphSymmetries = new RadialGraphSymmetries();
-        graphSymmetries.areSymmetric(g1, g2); // must return false
-        graphSymmetries.areSymmetric(g1, g3); // must return true
-        graphSymmetries.areSymmetric(g3, g4); // must return true
+        System.out.println(graphSymmetries.areSymmetric(g1, g2)); // must return false
+        System.out.println(graphSymmetries.areSymmetric(g1, g3)); // must return true
+        System.out.println(graphSymmetries.areSymmetric(g3, g4)); // must return true
 
         // obtain all the symmetries (including the identity) of g1, and print them one by one (remember that printing
         // will give the string representation of each radial graph, which must follow the specification of Shape's
@@ -45,10 +45,13 @@ public class GeometryTest {
                                 new Point("lower-left", 0, 0), new Point("lower-right", 1, 0));
         Square sq2 = sq1.rotateBy(30);
         Square sq3 = sq1.rotateBy(180);
-
+        Square sq4 = sq1.rotateBy(90);
+        // System.out.println(sq2);
         SquareSymmetries squareSymmetries = new SquareSymmetries();
-        squareSymmetries.areSymmetric(sq1, sq2); // must return false
-        squareSymmetries.areSymmetric(sq1, sq3); // must return true
+        System.out.println(squareSymmetries.areSymmetric(sq1, sq2)); // must return false
+        System.out.println(squareSymmetries.areSymmetric(sq1, sq3)); // must return true
+        System.out.println(squareSymmetries.areSymmetric(sq4, sq1));
+        System.out.println(squareSymmetries.areSymmetric(sq4, sq3));
 
         // obtain all the 8 symmetries (including the identity) of sq1, and print them one by one (remember that printing
         // will give the string representation of each square, which must follow the specification of Shape's toString()

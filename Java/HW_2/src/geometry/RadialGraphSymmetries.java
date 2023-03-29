@@ -13,11 +13,13 @@ public class RadialGraphSymmetries implements Symmetries<RadialGraph> {
         if (s1.center.x != s1.center.x && s1.center.y != s2.center.y) {
             return false;
         }
+        double tolerance = 1e-10;
         List<RadialGraph> allVariants = symmetriesOf(s1);
         for (RadialGraph i : allVariants) {
             int z = 0;
             innerloop: for (; z < s1.neighbors.size(); z++) {
-                if (i.neighbors.get(z).x != s2.neighbors.get(z).x || i.neighbors.get(z).y != s2.neighbors.get(z).y) {
+                if (Math.abs(i.neighbors.get(z).x - s2.neighbors.get(z).x) > tolerance
+                        || Math.abs(i.neighbors.get(z).y - s2.neighbors.get(z).y) > tolerance) {
                     break innerloop;
                 }
             }
