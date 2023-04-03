@@ -27,13 +27,10 @@ public class RadialGraph extends Shape {
             return this;
         }
         List<Point> newNeightbors = translateAllPointsToCenter(center, neighbors);
-        double xOffset = center.x, yOffset = center.y;
         for (int i = 0; i < newNeightbors.size(); i++) {
             newNeightbors.set(i, rotatePoint(newNeightbors.get(i), degrees));
         }
-        for (int i = 0; i < neighbors.size(); i++) {
-            newNeightbors.set(i, translatePoint(newNeightbors.get(i), xOffset, yOffset));
-        }
+        newNeightbors = translateAllPointsBack(center, newNeightbors);
         return new RadialGraph(center, (List<Point>) newNeightbors);
     }
 
