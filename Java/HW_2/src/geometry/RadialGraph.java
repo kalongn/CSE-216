@@ -100,17 +100,19 @@ public class RadialGraph extends Shape {
     }
 
     private static List<Point> translateAllPointsToCenter(Point center, List<Point> neighbors) {
+        List<Point> newNeighbors = new ArrayList<>();
         for (int i = 0; i < neighbors.size(); i++) {
-            neighbors.set(i, translatePoint(neighbors.get(i), -1 * center.x, -1 * center.y));
+            newNeighbors.add(translatePoint(neighbors.get(i), -1 * center.x, -1 * center.y));
         }
-        return neighbors;
+        return newNeighbors;
     }
 
     private static List<Point> translateAllPointsBack(Point center, List<Point> neighbors) {
+        List<Point> newNeighbors = new ArrayList<>();
         for (int i = 0; i < neighbors.size(); i++) {
-            neighbors.set(i, translatePoint(neighbors.get(i), center.x, center.y));
+            newNeighbors.add(translatePoint(neighbors.get(i), center.x, center.y));
         }
-        return neighbors;
+        return newNeighbors;
     }
 
     private static double[] allPointsToDegree(List<Point> neighbors) {
