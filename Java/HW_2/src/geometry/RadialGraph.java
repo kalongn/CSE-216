@@ -116,10 +116,7 @@ public class RadialGraph extends Shape {
     private static double[] allPointsToDegree(List<Point> neighbors) {
         double radians[] = new double[neighbors.size()];
         for (int i = 0; i < neighbors.size(); i++) {
-            radians[i] = Math.toDegrees(Math.atan2(neighbors.get(i).y, neighbors.get(i).x));
-            if (radians[i] < 0) {
-                radians[i] = (360.0 + radians[i]) % 360;
-            }
+            radians[i] = (360 + Math.toDegrees(Math.atan2(neighbors.get(i).y, neighbors.get(i).x))) % 360;
         }
         return radians;
     }
