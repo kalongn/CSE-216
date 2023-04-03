@@ -12,14 +12,12 @@ public class Square extends Shape {
     @Override
     public Square rotateBy(int degrees) {
         Point center = getRealCenter();
-        double xOffset = center.x, yOffset = center.y;
-
         Point[] points = new Point[] { a, b, c, d };
+        points = translateAllPointsToCenter(center, points);
         for (int i = 0; i < points.length; i++) {
-            points[i] = translatePoint(points[i], -1 * xOffset, -1 * yOffset);
             points[i] = rotatePoint(points[i], degrees);
-            points[i] = translatePoint(points[i], xOffset, yOffset);
         }
+        points = translateAllPointsBack(center, points);
 
         return new Square(points[0], points[1], points[2], points[3]);
     }
@@ -35,7 +33,11 @@ public class Square extends Shape {
 
     @Override
     public String toString() {
+        Point center = getRealCenter();
         Point[] points = new Point[] { a, b, c, d };
+        points = translateAllPointsToCenter(center, points);
+        double[] radians = allPointsToDegree(points);
+        points = translateAllPointsBack(center, insertionSort(radians, points));
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < points.length; i++) {
@@ -105,6 +107,46 @@ public class Square extends Shape {
         return value;
     }
 
+    private static Point[] translateAllPointsToCenter(Point center, Point[] points) {
+        for (int i = 0; i < points.length; i++) {
+            points[i] = translatePoint(points[i], -1 * center.x, -1 * center.y);
+        }
+        return points;
+    }
+
+    private static Point[] translateAllPointsBack(Point center, Point[] points) {
+        for (int i = 0; i < points.length; i++) {
+            points[i] = translatePoint(points[i], center.x, center.y);
+        }
+        return points;
+    }
+
+    private static double[] allPointsToDegree(Point[] points) {
+        double radians[] = new double[points.length];
+        for (int i = 0; i < points.length; i++) {
+            radians[i] = (360 + Math.toDegrees(Math.atan2(points[i].y, points[i].x))) % 360;
+        }
+        return radians;
+    }
+
+    private static Point[] insertionSort(double[] thetas, Point[] points) {
+        int n = thetas.length;
+        for (int i = 1; i < n; i++) {
+            double thetaKey = thetas[i];
+            Point pointKey = points[i];
+            int j = i - 1;
+
+            while (j >= 0 && thetas[j] > thetaKey) {
+                thetas[j + 1] = thetas[j];
+                points[j + 1] = points[j];
+                j = j - 1;
+            }
+            thetas[j + 1] = thetaKey;
+            points[j + 1] = pointKey;
+        }
+        return points;
+    }
+
     public static void main(String... args) {
         // Normal square:
         Shape sq1 = new Square(new Point("upper-right", 1, 1), new Point("upper-left", 0, 1),
@@ -122,7 +164,7 @@ public class Square extends Shape {
         // Rotate Square:
         sq1 = ((Square) sq1).rotateBy(90);
         System.out.println(sq1);
-        sq1 = ((Square) sq1).rotateBy(390);
+        sq1 = ((Square) sq1).rotateBy(30);
         System.out.println(sq1);
         sq1 = ((Square) sq1).rotateBy(330);
         System.out.println(sq1);
