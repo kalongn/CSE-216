@@ -26,10 +26,10 @@ public class RadialGraph extends Shape {
         if (neighbors == null) {
             return this;
         }
-        List<Point> newNeightbors = new ArrayList<>();
+        List<Point> newNeightbors = translateAllPointsToCenter(center, neighbors);
         double xOffset = center.x, yOffset = center.y;
-        for (int i = 0; i < neighbors.size(); i++) {
-            newNeightbors.add(rotatePoint(translatePoint(neighbors.get(i), -1 * xOffset, -1 * yOffset), degrees));
+        for (int i = 0; i < newNeightbors.size(); i++) {
+            newNeightbors.set(i, rotatePoint(newNeightbors.get(i), degrees));
         }
         for (int i = 0; i < neighbors.size(); i++) {
             newNeightbors.set(i, translatePoint(newNeightbors.get(i), xOffset, yOffset));
@@ -56,11 +56,15 @@ public class RadialGraph extends Shape {
         if (neighbors == null) {
             return new StringJoiner(",", "[", "]").add(roundedCenter.toString()).toString();
         }
+        List<Point> newNeightbors = translateAllPointsToCenter(center, neighbors);
+        double radians[] = allPointsToDegree(newNeightbors);
+        List<Point> sortedNewNeightbors = translateAllPointsBack(center, insertionSort(radians, newNeightbors));
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < neighbors.size(); i++) {
-            Point rounded = new Point(neighbors.get(i).name, round(neighbors.get(i).x), round(neighbors.get(i).y));
+        for (int i = 0; i < sortedNewNeightbors.size(); i++) {
+            Point rounded = new Point(sortedNewNeightbors.get(i).name, round(sortedNewNeightbors.get(i).x),
+                    round(sortedNewNeightbors.get(i).y));
             sb.append(rounded.toString());
-            if (i != neighbors.size() - 1) {
+            if (i != sortedNewNeightbors.size() - 1) {
                 sb.append(",");
             }
         }
@@ -96,6 +100,53 @@ public class RadialGraph extends Shape {
             }
         }
         return true;
+    }
+
+    private static List<Point> translateAllPointsToCenter(Point center, List<Point> neighbors) {
+        List<Point> newNeightbors = new ArrayList<>();
+        double xOffset = center.x, yOffset = center.y;
+        for (int i = 0; i < neighbors.size(); i++) {
+            newNeightbors.add(translatePoint(neighbors.get(i), -1 * xOffset, -1 * yOffset));
+        }
+        return newNeightbors;
+    }
+
+    private static List<Point> translateAllPointsBack(Point center, List<Point> neighbors) {
+        List<Point> newNeightbors = new ArrayList<>();
+        double xOffset = center.x, yOffset = center.y;
+        for (int i = 0; i < neighbors.size(); i++) {
+            newNeightbors.add(translatePoint(neighbors.get(i), xOffset, yOffset));
+        }
+        return newNeightbors;
+    }
+
+    private static double[] allPointsToDegree(List<Point> neighbors) {
+        double radians[] = new double[neighbors.size()];
+        for (int i = 0; i < neighbors.size(); i++) {
+            radians[i] = Math.toDegrees(Math.atan2(neighbors.get(i).y, neighbors.get(i).x));
+            if (radians[i] < 0) {
+                radians[i] = (360.0 + radians[i]) % 360;
+            }
+        }
+        return radians;
+    }
+
+    private static List<Point> insertionSort(double[] thetas, List<Point> neighbors) {
+        int n = thetas.length;
+        for (int i = 1; i < n; i++) {
+            double thetaKey = thetas[i];
+            Point pointKey = neighbors.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && thetas[j] > thetaKey) {
+                thetas[j + 1] = thetas[j];
+                neighbors.set(j + 1, neighbors.get(j));
+                j = j - 1;
+            }
+            thetas[j + 1] = thetaKey;
+            neighbors.set(j + 1, pointKey);
+        }
+        return neighbors;
     }
 
     // modified this with Tolerance.
