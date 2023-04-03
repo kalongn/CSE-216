@@ -62,19 +62,32 @@ public class SquareSymmetries implements Symmetries<Square> {
     }
 
     private static Square singleReflectOf(Square s, int waysOfReflection) {
-        Point newA = new Point(s.a.name, s.a.x, s.a.y);
-        Point newB = new Point(s.b.name, s.b.x, s.b.y);
-        Point newC = new Point(s.c.name, s.c.x, s.c.y);
-        Point newD = new Point(s.d.name, s.d.x, s.d.y);
+        Point newA, newB, newC, newD;
         switch (waysOfReflection) {
             case 0:
-                return new Square(newB, newA, newD, newC);
+                newA = new Point(s.d.name, s.a.x, s.a.y);
+                newB = new Point(s.c.name, s.b.x, s.b.y);
+                newC = new Point(s.b.name, s.c.x, s.c.y);
+                newD = new Point(s.a.name, s.d.x, s.d.y);
+                return new Square(newA, newB, newC, newD);
             case 1:
-                return new Square(newD, newC, newB, newA);
+                newA = new Point(s.b.name, s.a.x, s.a.y);
+                newB = new Point(s.a.name, s.b.x, s.b.y);
+                newC = new Point(s.d.name, s.c.x, s.c.y);
+                newD = new Point(s.c.name, s.d.x, s.d.y);
+                return new Square(newA, newB, newC, newD);
             case 2:
-                return new Square(newC, newB, newA, newD);
+                newA = new Point(s.a.name, s.a.x, s.a.y);
+                newB = new Point(s.d.name, s.b.x, s.b.y);
+                newC = new Point(s.c.name, s.c.x, s.c.y);
+                newD = new Point(s.b.name, s.d.x, s.d.y);
+                return new Square(newA, newB, newC, newD);
             case 3:
-                return new Square(newA, newD, newC, newB);
+                newA = new Point(s.c.name, s.a.x, s.a.y);
+                newB = new Point(s.b.name, s.b.x, s.b.y);
+                newC = new Point(s.a.name, s.c.x, s.c.y);
+                newD = new Point(s.d.name, s.d.x, s.d.y);
+                return new Square(newA, newB, newC, newD);
             default:
                 throw new IllegalArgumentException("waysOfReflection is not within valid range");
         }
