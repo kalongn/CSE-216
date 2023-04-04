@@ -2,7 +2,7 @@ package geometry;
 
 public class Square extends Shape {
 
-    public final Point a, b, c, d;
+    protected final Point a, b, c, d;
 
     @Override
     public Point center() {

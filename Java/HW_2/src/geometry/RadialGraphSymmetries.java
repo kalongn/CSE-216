@@ -10,7 +10,7 @@ public class RadialGraphSymmetries implements Symmetries<RadialGraph> {
         if (s1.neighbors.size() != s2.neighbors.size()) {
             return false;
         }
-        if (s1.center.x != s1.center.x && s1.center.y != s2.center.y) {
+        if (s1.center().x != s1.center().x && s1.center().y != s2.center().y) {
             return false;
         }
         double tolerance = 1e-10;

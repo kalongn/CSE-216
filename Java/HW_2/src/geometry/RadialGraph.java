@@ -4,8 +4,8 @@ import java.util.*;
 
 public class RadialGraph extends Shape {
 
-    public final Point center;
-    public final List<Point> neighbors;
+    private final Point center;
+    protected final List<Point> neighbors;
 
     public RadialGraph(Point center, List<Point> neighbors) {
         this.center = center;
@@ -26,19 +26,19 @@ public class RadialGraph extends Shape {
         if (neighbors == null) {
             return this;
         }
-        List<Point> newNeightbors = translateAllPointsToCenter(center, neighbors);
+        List<Point> newNeightbors = translateAllPointsToCenter(center(), neighbors);
         for (int i = 0; i < newNeightbors.size(); i++) {
             newNeightbors.set(i, rotatePoint(newNeightbors.get(i), degrees));
         }
-        newNeightbors = translateAllPointsBack(center, newNeightbors);
-        return new RadialGraph(center, (List<Point>) newNeightbors);
+        newNeightbors = translateAllPointsBack(center(), newNeightbors);
+        return new RadialGraph(center(), (List<Point>) newNeightbors);
     }
 
     @Override
     public RadialGraph translateBy(double x, double y) {
-        Point newCenter = translatePoint(center, x, y);
+        Point newCenter = translatePoint(center(), x, y);
         if (neighbors == null) {
-            return new RadialGraph(center);
+            return new RadialGraph(center());
         }
         List<Point> newNeightbors = new ArrayList<>();
         for (Point i : this.neighbors) {
@@ -49,13 +49,13 @@ public class RadialGraph extends Shape {
 
     @Override
     public String toString() {
-        Point roundedCenter = new Point("center", round(center.x), round(center.y));
+        Point roundedCenter = new Point("center", round(center().x), round(center().y));
         if (neighbors == null) {
             return new StringJoiner(",", "[", "]").add(roundedCenter.toString()).toString();
         }
-        List<Point> newNeightbors = translateAllPointsToCenter(center, neighbors);
+        List<Point> newNeightbors = translateAllPointsToCenter(center(), neighbors);
         double radians[] = allPointsToDegree(newNeightbors);
-        List<Point> sortedNewNeightbors = translateAllPointsBack(center, insertionSort(radians, newNeightbors));
+        List<Point> sortedNewNeightbors = translateAllPointsBack(center(), insertionSort(radians, newNeightbors));
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sortedNewNeightbors.size(); i++) {
             Point rounded = new Point(sortedNewNeightbors.get(i).name, round(sortedNewNeightbors.get(i).x),
