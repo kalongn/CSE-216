@@ -178,8 +178,6 @@ public class RadialGraph extends Shape {
         // the same length
 
         RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
-        System.out.println(nope);
-        System.out.println("Exception test passed.");
 
         Shape g = new RadialGraph(center, Arrays.asList(north, south, east, west));
 

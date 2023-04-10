@@ -81,8 +81,8 @@ public class GeometryTest {
     }
 
     private static void testSquareSymmetries() {
-        Square sq1 = new Square(new Point("2", 1, 1), new Point("1", 0, 1),
-                                new Point("4", 0, 0), new Point("3", 1, 0));
+        Square sq1 = new Square(new Point("upper-right", 1, 1), new Point("upper-left", 0, 1), 
+                                new Point("lower-left", 0, 0), new Point("lower-right", 1, 0));
         Square sq2 = sq1.rotateBy(30);
         Square sq3 = sq1.rotateBy(180);
 
