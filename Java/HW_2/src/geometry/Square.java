@@ -152,13 +152,9 @@ public class Square extends Shape {
         Shape sq1 = new Square(new Point("upper-right", 1, 1), new Point("upper-left", 0, 1),
                 new Point("lower-left", 0, 0), new Point("lower-right", 1, 0));
         // Fail case square:
-        try {
-            Shape sq2 = new Square(new Point("lower-right", 1, 0), new Point("upper-left", 0, 1),
-                    new Point("lower-left", 0, 0), new Point("upper-right", 1, 1));
-            System.out.println(sq2);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("Exception test pass");
-        }
+        Shape sq2 = new Square(new Point("lower-right", 1, 0), new Point("upper-left", 0, 1),
+                new Point("lower-left", 0, 0), new Point("upper-right", 1, 1));
+        System.out.println(sq2);
         // printing square:
         System.out.println(sq1);
         // Rotate Square:

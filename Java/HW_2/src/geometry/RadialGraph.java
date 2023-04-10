@@ -177,12 +177,9 @@ public class RadialGraph extends Shape {
         // This line must throw IllegalArgumentException, since the edges will not be of
         // the same length
 
-        try {
-            RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
-            System.out.println(nope);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("Exception test passed.");
-        }
+        RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
+        System.out.println(nope);
+        System.out.println("Exception test passed.");
 
         Shape g = new RadialGraph(center, Arrays.asList(north, south, east, west));
 
