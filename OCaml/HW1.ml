@@ -68,10 +68,10 @@ let equivs f list =
   let rec aux acc f list = match list with
   | [] -> acc
   | h::t -> match acc with
-    | [] -> (aux ([[h]]@acc) f t)
-    | h2::t2 -> if(exist_list (f h) h2) then (aux (t2@[h2@[h]]) f t) else let rec aux2 llist = match llist with
+    | [] -> (aux (acc@[[h]]) f t)
+    | h2::t2 -> if(f (List.hd h2) h) then (aux (t2@[h2@[h]]) f t) else let rec aux2 llist = match llist with
       | [] -> (aux (acc@[[h]]) f t)
-      | h3::t3 -> if(exist_list (f h) h3) then (aux (t2@[h3@[h]]) f t) else (aux2 t3) 
+      | h3::t3 -> if(f (List.hd h3) h) then (aux ([h2]@t3@[h3@[h]]) f t) else (aux2 t3) 
     in aux2 t2 
   in aux [] f list
 ;;
