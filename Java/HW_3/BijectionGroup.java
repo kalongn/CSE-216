@@ -7,7 +7,14 @@ public class BijectionGroup {
     public static <T> Set<Function<T, T>> bijectionsOf(Set<T> domain) {
         Set<Function<T, T>> bijections = new HashSet<>();
         List<T> domainList = new ArrayList<>(domain);
-        getAllPermutations(domainList);
+        List<List<T>> allPermutations = getAllPermutations(domainList);
+        for (List<T> permutation : allPermutations) {
+            Map<T, T> Map = new HashMap<>();
+            for (int i = 0; i < domainList.size(); i++) {
+                Map.put(domainList.get(i), permutation.get(i));
+            }
+            bijections.add(t -> Map.get(t));
+        }
         return bijections;
     }
 
@@ -23,29 +30,21 @@ public class BijectionGroup {
             List<T> remaining = new ArrayList<>(list);
             remaining.remove(i);
             List<List<T>> permutations = getAllPermutations(remaining);
-            for (List<T> perm : permutations) {
-                perm.add(0, current);
-                result.add(perm);
+            for (List<T> permutation : permutations) {
+                permutation.add(0, current);
+                result.add(permutation);
             }
         }
         return result;
     }
 
     public static void main(String... args) {
-        List<Integer> testIntList = Stream.of(1,2,3).collect(Collectors.toList());
-        List<List<Integer>> allPermutations = getAllPermutations(testIntList);
-        for (List<Integer> perm : allPermutations) {
-            for (Integer i : perm) {
-                System.out.print(i + ",");
-            }
-            System.out.println();
-        }
-        /*Set<Integer> a_few = Stream.of(1, 2, 3).collect(Collectors.toSet());
+        Set<Integer> a_few = Stream.of(1, 2, 3).collect(Collectors.toSet());
         // you have to figure out the data type in the line below
         Set<Function<Integer, Integer>> bijections = bijectionsOf(a_few);
         bijections.forEach(aBijection -> {
             a_few.forEach(n -> System.out.printf("%d --> %d; ", n, aBijection.apply(n)));
             System.out.println();
-        });*/
+        });
     }
 }
