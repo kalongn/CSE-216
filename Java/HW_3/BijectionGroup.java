@@ -9,11 +9,11 @@ public class BijectionGroup {
         List<T> domainList = new ArrayList<>(domain);
         List<List<T>> allPermutations = getAllPermutations(domainList);
         for (List<T> permutation : allPermutations) {
-            Map<T, T> Map = new HashMap<>();
+            Map<T, T> map = new HashMap<>();
             for (int i = 0; i < domainList.size(); i++) {
-                Map.put(domainList.get(i), permutation.get(i));
+                map.put(domainList.get(i), permutation.get(i));
             }
-            bijections.add(t -> Map.get(t));
+            bijections.add(t -> map.get(t));
         }
         return bijections;
     }
