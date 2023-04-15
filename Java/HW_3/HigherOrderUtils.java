@@ -5,7 +5,7 @@ public class HigherOrderUtils {
         String name();
     }
 
-    public static final NamedBiFunction<Double, Double, Double> add = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> add = new NamedBiFunction<>() {
 
         @Override
         public Double apply(Double t, Double u) {
@@ -19,7 +19,7 @@ public class HigherOrderUtils {
 
     };
 
-    public static final NamedBiFunction<Double, Double, Double> subtract = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> subtract = new NamedBiFunction<>() {
 
         @Override
         public Double apply(Double t, Double u) {
@@ -33,7 +33,7 @@ public class HigherOrderUtils {
 
     };
 
-    public static final NamedBiFunction<Double, Double, Double> multiply = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> multiply = new NamedBiFunction<>() {
 
         @Override
         public Double apply(Double t, Double u) {
@@ -47,7 +47,7 @@ public class HigherOrderUtils {
 
     };
 
-    public static final NamedBiFunction<Double, Double, Double> div = new NamedBiFunction<>() {
+    public static NamedBiFunction<Double, Double, Double> div = new NamedBiFunction<>() {
 
         @Override
         public Double apply(Double t, Double u) {
