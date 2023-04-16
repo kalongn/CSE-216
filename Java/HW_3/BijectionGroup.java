@@ -139,20 +139,12 @@ public class BijectionGroup {
             @Override
             public Function<T, T> inverseOf(Function<T, T> t) {
                 Set<Function<T, T>> allFunctions = bijectionsOf(domain);
-                for (Function<T, T> fun : allFunctions) {
-                    int check = 0;
-                    for (T i : domain) {
-                        if (fun.apply(t.apply(i)) == identity().apply(i)) {
-                            check++;
-                        }
-                    }
-                    if (check == domain.size()) {
-                        return fun;
-                    }
-                }
-                return null;
+                return allFunctions.stream().filter(fun -> {
+                    return domain.stream().allMatch(i -> {
+                        return binaryOperation(fun, t).apply(i) == identity().apply(i);
+                    });
+                }).findFirst().orElse(null);
             }
-
         };
     }
 
