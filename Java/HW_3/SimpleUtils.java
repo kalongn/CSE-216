@@ -20,8 +20,7 @@ public class SimpleUtils {
      */
     public static <T extends Comparable<T>> T least(Collection<T> items, boolean from_start) {
         return from_start ? items.stream().min(Comparable::compareTo).orElse(null)
-                : items.stream().reduce((a, b) -> b.compareTo(a) < 0 ? b : a).orElse(null);
-
+                : items.stream().reduce((a, b) -> b.compareTo(a) <= 0 ? b : a).orElse(null);
     }
 
     /**
