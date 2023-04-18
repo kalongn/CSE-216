@@ -19,22 +19,24 @@ public class BijectionGroup {
     }
 
     private static <T> List<List<T>> getAllPermutations(List<T> list) {
-        if (list.size() == 0) {
-            List<List<T>> result = new ArrayList<>();
-            result.add(new ArrayList<>());
-            return result;
-        }
         List<List<T>> result = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            List<T> remaining = new ArrayList<>(list);
-            T current = remaining.remove(i);
-            List<List<T>> permutations = getAllPermutations(remaining);
-            for (List<T> permutation : permutations) {
-                permutation.add(0, current);
-                result.add(permutation);
+        backTrackPermutations(result, new ArrayList<>(), list);
+        return result;
+    }
+
+    private static <T> void backTrackPermutations(List<List<T>> list, List<T> tempList, List<T> inputList) {
+        if (tempList.size() == inputList.size()) {
+            list.add(new ArrayList<>(tempList));
+        } else {
+            for (int i = 0; i < inputList.size(); i++) {
+                if (tempList.contains(inputList.get(i))) {
+                    continue;
+                }
+                tempList.add(inputList.get(i));
+                backTrackPermutations(list, tempList, inputList);
+                tempList.remove(tempList.size() - 1);
             }
         }
-        return result;
     }
 
     public interface Group<T> {
