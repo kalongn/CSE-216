@@ -26,9 +26,8 @@ public class BijectionGroup {
         }
         List<List<T>> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            T current = list.get(i);
             List<T> remaining = new ArrayList<>(list);
-            remaining.remove(i);
+            T current = remaining.remove(i);
             List<List<T>> permutations = getAllPermutations(remaining);
             for (List<T> permutation : permutations) {
                 permutation.add(0, current);
