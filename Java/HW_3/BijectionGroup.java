@@ -139,12 +139,11 @@ public class BijectionGroup {
 
             @Override
             public Function<T, T> inverseOf(Function<T, T> t) {
-                Set<Function<T, T>> allFunctions = bijectionsOf(domain);
-                return allFunctions.stream().filter(fun -> {
-                    return domain.stream().allMatch(i -> {
-                        return binaryOperation(fun, t).apply(i) == identity().apply(i);
-                    });
-                }).findFirst().orElse(null);
+                Function<T,T> returnF = t;
+                for(int i = 0; i < domain.size()-1; i++) {
+                    returnF = returnF.compose(t);
+                }
+                return returnF;
             }
         };
     }
@@ -163,7 +162,9 @@ public class BijectionGroup {
         // java.util.function.Function
         Group<Function<Integer, Integer>> g = bijectionGroup(a_few);
         Function<Integer, Integer> f1 = bijectionsOf(a_few).stream().findFirst().get();
+        a_few.forEach(n -> System.out.printf("%d --> %d; ", n, f1.apply(n)));
         Function<Integer, Integer> f2 = g.inverseOf(f1);
+        a_few.forEach(n -> System.out.printf("%d --> %d; ", n, f2.apply(n)));
         Function<Integer, Integer> id = g.identity();
     }
 }
