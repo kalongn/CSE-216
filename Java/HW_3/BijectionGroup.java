@@ -142,7 +142,7 @@ public class BijectionGroup {
                 Set<Function<T, T>> allFunctions = bijectionsOf(domain);
                 return allFunctions.stream().filter(fun -> {
                     return domain.stream().allMatch(i -> {
-                        return binaryOperation(fun, t).apply(i) == identity().apply(i);
+                        return binaryOperation(fun, t).apply(i).equals(identity().apply(i));
                     });
                 }).findFirst().orElse(null);
             }
