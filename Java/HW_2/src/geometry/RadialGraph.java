@@ -177,7 +177,7 @@ public class RadialGraph extends Shape {
         // This line must throw IllegalArgumentException, since the edges will not be of
         // the same length
 
-        //RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
+        RadialGraph nope = new RadialGraph(center, Arrays.asList(north, toofarsouth, east, west));
 
         Shape g = new RadialGraph(center, Arrays.asList(north, south, east, west));
 
