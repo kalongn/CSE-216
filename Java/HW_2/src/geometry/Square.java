@@ -44,7 +44,7 @@ public class Square extends Shape {
             Point rounded = new Point(points[i].name, round(points[i].x), round(points[i].y));
             sb.append(rounded.toString());
             if (i != points.length - 1) {
-                sb.append(",");
+                sb.append("; ");
             }
         }
         sb.append("]");

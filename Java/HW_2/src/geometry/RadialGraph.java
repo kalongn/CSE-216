@@ -51,7 +51,7 @@ public class RadialGraph extends Shape {
     public String toString() {
         Point roundedCenter = new Point("center", round(center().x), round(center().y));
         if (neighbors == null) {
-            return new StringJoiner(",", "[", "]").add(roundedCenter.toString()).toString();
+            return new StringJoiner(";", "[", "]").add(roundedCenter.toString()).toString();
         }
         List<Point> newNeightbors = translateAllPointsToCenter(center(), neighbors);
         double radians[] = allPointsToDegree(newNeightbors);
@@ -62,7 +62,7 @@ public class RadialGraph extends Shape {
                     round(sortedNewNeightbors.get(i).y));
             sb.append(rounded.toString());
             if (i != sortedNewNeightbors.size() - 1) {
-                sb.append(",");
+                sb.append("; ");
             }
         }
         return new StringJoiner(",", "[", "]").add(roundedCenter.toString()).add(sb.toString()).toString();
