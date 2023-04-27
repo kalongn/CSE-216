@@ -210,6 +210,13 @@ public class HW3_Test {
             System.out.println("bijectionsOf_Test_1_2_Size_Passed");
         }
         System.out.println();
+        try {
+            Set<Function<Integer, Integer>> nullResult = BijectionGroup.bijectionsOf(null);
+            System.out.println("bijectionsOf_Test_1_3_Null_Passed");
+        } catch (NullPointerException e) {
+            System.out.println("bijectionsOf_Test_1_3_Null_Failed");
+        }
+        System.out.println();
 
         // Test with a small domain of integers
         Set<Integer> smallDomain = new HashSet<>(Arrays.asList(1, 2, 3));
