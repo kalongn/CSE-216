@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 public class BijectionGroup {
     public static <T> Set<Function<T, T>> bijectionsOf(Set<T> domain) {
         Set<Function<T, T>> bijections = new HashSet<>();
-        if (domain.size() == 0) {
+        if (domain == null || domain.size() == 0) {
             return bijections;
         }
         List<T> domainList = new ArrayList<>(domain);
