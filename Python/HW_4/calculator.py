@@ -6,14 +6,6 @@ def is_float(input_string: str) -> bool:
         return False
 
 
-def is_valid_operator(input_string: str) -> bool:
-    valid_operator = ("+", "-", "*", "/")
-    if input_string.strip() in valid_operator:
-        return True
-    else:
-        return False
-
-
 def get_number(sentence_string: str) -> float:
     while True:
         user_input = input(sentence_string + " ")
