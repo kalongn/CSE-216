@@ -62,14 +62,6 @@ class Calculator:
         self.__halt_prompt = halt_prompt
         self.__calculate_history = []
 
-    # def calculate(self):
-    #    first_number = get_number(self.__first_numer_prompt)
-    #    arithmetic_operator = get_operator(self.__arithmetic_operator_prompt)
-    #    second_number = get_number(self.__second_number_prompt)
-    #    result = eval(f'{first_number} {arithmetic_operator} {second_number}')
-    #    self.__calculateHistory.append(result)
-    #    print(str(first_number) + " " + str(second_number) + " = " + str(result))
-
     def run(self):
         while True:
             first_number = get_number(self.__first_numer_prompt)
