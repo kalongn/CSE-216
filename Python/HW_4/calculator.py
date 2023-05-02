@@ -25,7 +25,21 @@ def get_operator(sentence_string):
             print("You may only enter one of the following operators: + - * /")
 
 
+def halt(sentence_string):
+    valid_true = ("Y", "y", "YES", "Yes", "yes")
+    valid_false = ("N", "n", "NO", "No", "no")
+    while True:
+        user_input = input(sentence_string + " ").strip()
+        if user_input in valid_true:
+            return True
+        elif user_input in valid_false:
+            return False
+        else:
+            print("Invalid response. Please enter [Y|N].")
+
+
 if __name__ == "__main__":
     # print(get_number("Please enter a number:"))
     # print(get_operator("Enter an orithmetic operator:"))
+    # print(halt("Would you like to continue?"))
     pass
