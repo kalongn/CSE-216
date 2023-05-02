@@ -1,4 +1,4 @@
-def is_float(input_string):
+def is_float(input_string: str) -> bool:
     try:
         float(input_string.strip())
         return True
@@ -6,7 +6,15 @@ def is_float(input_string):
         return False
 
 
-def get_number(sentence_string):
+def is_valid_operator(input_string: str) -> bool:
+    valid_operator = ("+", "-", "*", "/")
+    if input_string.strip() in valid_operator:
+        return True
+    else:
+        return False
+
+
+def get_number(sentence_string: str) -> float:
     while True:
         user_input = input(sentence_string + " ")
         if is_float(user_input) and not user_input.upper().isupper():
@@ -15,7 +23,7 @@ def get_number(sentence_string):
             print("Invalid input. Try to provide a valid number.")
 
 
-def get_operator(sentence_string):
+def get_operator(sentence_string: str) -> str:
     valid_operator = ("+", "-", "*", "/")
     while True:
         user_input = input(sentence_string + " ").strip()
@@ -25,7 +33,7 @@ def get_operator(sentence_string):
             print("You may only enter one of the following operators: + - * /")
 
 
-def halt(sentence_string):
+def halt(sentence_string: str) -> bool:
     valid_true = ("Y", "y", "YES", "Yes", "yes")
     valid_false = ("N", "n", "NO", "No", "no")
     while True:
@@ -38,8 +46,15 @@ def halt(sentence_string):
             print("Invalid response. Please enter [Y|N].")
 
 
+def calculate() -> float:
+    first_number = get_number("Enter the first number:")
+    arithmetic_operator = get_operator("Enter the operator:")
+    second_number = get_number("Enter the second number:")
+    return eval(f'{first_number} {arithmetic_operator} {second_number}')
+
 if __name__ == "__main__":
     # print(get_number("Please enter a number:"))
     # print(get_operator("Enter an orithmetic operator:"))
     # print(halt("Would you like to continue?"))
+    # print(calculate())
     pass
