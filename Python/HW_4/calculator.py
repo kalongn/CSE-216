@@ -31,7 +31,7 @@ class Calculator:
     def get_number(sentence_string: str) -> float:
         while True:
             user_input = input(sentence_string + " ")
-            if Calculator.is_float(user_input) and not user_input.upper().isupper():
+            if Calculator.is_float(user_input) and not user_input.islower():
                 return float(user_input.strip())
             else:
                 print("Invalid input. Try to provide a valid number.")
@@ -40,7 +40,7 @@ class Calculator:
     def get_integer_to_integer(sentence_string: str) -> float:
         while True:
             user_input = input(sentence_string + " ")
-            if Calculator.is_integer(user_input) and not user_input.upper().isupper():
+            if Calculator.is_integer(user_input) and not user_input.islower():
                 return int(user_input.strip())
             else:
                 print("Invalid input. Try to provide a valid number.")
@@ -99,7 +99,7 @@ class Calculator:
 
 
 if __name__ == "__main__":
-    # print(get_number("Please enter a number:"))
+    # print(Calculator.get_number("Please enter a number:"))
     # print(get_operator("Enter an orithmetic operator:"))
     # print(halt("Would you like to continue?"))
     # print(calculate())
