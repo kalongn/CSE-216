@@ -1,52 +1,3 @@
-def is_float(input_string: str) -> bool:
-    try:
-        float(input_string.strip())
-        return True
-    except ValueError:
-        return False
-
-
-def get_number(sentence_string: str) -> float:
-    while True:
-        user_input = input(sentence_string + " ")
-        if is_float(user_input) and not user_input.upper().isupper():
-            return float(user_input.strip())
-        else:
-            print("Invalid input. Try to provide a valid number.")
-
-
-def get_operator(sentence_string: str) -> str:
-    valid_operator = ("+", "-", "*", "/")
-    while True:
-        user_input = input(sentence_string + " ").strip()
-        if user_input in valid_operator:
-            return str(user_input)
-        else:
-            print("You may only enter one of the following operators: + - * /")
-
-
-def halt(sentence_string: str) -> bool:
-    valid_true = ("Y", "y", "YES", "Yes", "yes")
-    valid_false = ("N", "n", "NO", "No", "no")
-    while True:
-        user_input = input(sentence_string + " ").strip()
-        if user_input in valid_true:
-            return True
-        elif user_input in valid_false:
-            return False
-        else:
-            print("Invalid response. Please enter [Y|N].")
-
-
-def calculate() -> float:
-    first_number = get_number("Enter the first number:")
-    arithmetic_operator = get_operator("Enter the operator:")
-    second_number = get_number("Enter the second number:")
-    if (arithmetic_operator == "/" and second_number == 0.0):
-        raise ValueError("Cannot divide by 0.")
-    return eval(f'{first_number} {arithmetic_operator} {second_number}')
-
-
 class Calculator:
     def __init__(self, first_numer_prompt: str, arithmetic_operator_prompt: str, second_number_prompt: str, goodbye_messg=None, halt_prompt: str = "Would you like to continue?") -> None:
         self.__first_numer_prompt = first_numer_prompt
@@ -56,12 +7,69 @@ class Calculator:
         self.__halt_prompt = halt_prompt
         self.__calculate_history = []
 
+    @staticmethod
+    def is_float(input_string: str) -> bool:
+        try:
+            float(input_string.strip())
+            return True
+        except ValueError:
+            return False
+
+    @staticmethod
+    def is_integer(input_string: str) -> bool:
+        try:
+            int(input_string.strip())
+            return True
+        except ValueError:
+            return False
+
+    @staticmethod
+    def get_number(sentence_string: str) -> float:
+        while True:
+            user_input = input(sentence_string + " ")
+            if Calculator.is_float(user_input) and not user_input.upper().isupper():
+                return float(user_input.strip())
+            else:
+                print("Invalid input. Try to provide a valid number.")
+
+    @staticmethod
+    def get_operator(sentence_string: str) -> str:
+        valid_operator = ("+", "-", "*", "/")
+        while True:
+            user_input = input(sentence_string + " ").strip()
+            if user_input in valid_operator:
+                return str(user_input)
+            else:
+                print("You may only enter one of the following operators: + - * /")
+
+    @staticmethod
+    def halt(sentence_string: str) -> bool:
+        valid_true = ("Y", "y", "YES", "Yes", "yes")
+        valid_false = ("N", "n", "NO", "No", "no")
+        while True:
+            user_input = input(sentence_string + " ").strip()
+            if user_input in valid_true:
+                return True
+            elif user_input in valid_false:
+                return False
+            else:
+                print("Invalid response. Please enter [Y|N].")
+
+    @staticmethod
+    def calculate() -> float:
+        first_number = Calculator.get_number("Enter the first number:")
+        arithmetic_operator = Calculator.get_operator("Enter the operator:")
+        second_number = Calculator.get_number("Enter the second number:")
+        if (arithmetic_operator == "/" and second_number == 0.0):
+            raise ValueError("Cannot divide by 0.")
+        return eval(f'{first_number} {arithmetic_operator} {second_number}')
+
     def run(self) -> None:
         while True:
-            first_number = get_number(self.__first_numer_prompt)
-            arithmetic_operator = get_operator(
+            first_number = Calculator.get_number(self.__first_numer_prompt)
+            arithmetic_operator = Calculator.get_operator(
                 self.__arithmetic_operator_prompt)
-            second_number = get_number(self.__second_number_prompt)
+            second_number = Calculator.get_number(self.__second_number_prompt)
             if (arithmetic_operator == "/" and second_number == 0.0):
                 raise ValueError("Cannot divide by 0.")
             result = eval(
@@ -69,7 +77,7 @@ class Calculator:
             self.__calculate_history.append(result)
             print(str(first_number) + " " + str(arithmetic_operator) +
                   " " + str(second_number) + " = " + str(result))
-            if (not halt(self.__halt_prompt)):
+            if (not Calculator.halt(self.__halt_prompt)):
                 break
         print(
             f"You carried out {len(self.__calculate_history)} calculations. The results were: {'; '.join(str(result) for result in self.__calculate_history)}")
