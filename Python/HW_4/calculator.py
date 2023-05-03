@@ -33,6 +33,15 @@ class Calculator:
                 print("Invalid input. Try to provide a valid number.")
 
     @staticmethod
+    def get_integer_to_float(sentence_string: str) -> float:
+        while True:
+            user_input = input(sentence_string + " ")
+            if Calculator.is_integer(user_input) and not user_input.upper().isupper():
+                return float(user_input.strip())
+            else:
+                print("Invalid input. Try to provide a valid number.")
+
+    @staticmethod
     def get_operator(sentence_string: str) -> str:
         valid_operator = ("+", "-", "*", "/")
         while True:
@@ -57,21 +66,25 @@ class Calculator:
 
     @staticmethod
     def calculate() -> float:
-        first_number = Calculator.get_number("Enter the first number:")
+        first_number = Calculator.get_integer_to_float(
+            "Enter the first number:")
         arithmetic_operator = Calculator.get_operator("Enter the operator:")
-        second_number = Calculator.get_number("Enter the second number:")
+        second_number = Calculator.get_integer_to_float(
+            "Enter the second number:")
         if (arithmetic_operator == "/" and second_number == 0.0):
-            raise ValueError("Cannot divide by 0.")
+            raise ZeroDivisionError("Cannot divide by 0.")
         return eval(f'{first_number} {arithmetic_operator} {second_number}')
 
     def run(self) -> None:
         while True:
-            first_number = Calculator.get_number(self.__first_numer_prompt)
+            first_number = Calculator.get_integer_to_float(
+                self.__first_numer_prompt)
             arithmetic_operator = Calculator.get_operator(
                 self.__arithmetic_operator_prompt)
-            second_number = Calculator.get_number(self.__second_number_prompt)
+            second_number = Calculator.get_integer_to_float(
+                self.__second_number_prompt)
             if (arithmetic_operator == "/" and second_number == 0.0):
-                raise ValueError("Cannot divide by 0.")
+                raise ZeroDivisionError("Cannot divide by 0.")
             result = eval(
                 f'{first_number} {arithmetic_operator} {second_number}')
             self.__calculate_history.append(result)
