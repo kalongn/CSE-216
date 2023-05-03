@@ -6,6 +6,10 @@ class Calculator:
         self.__goodbye_messg = goodbye_messg
         self.__halt_prompt = halt_prompt
         self.__calculate_history = []
+        self.__first_number = 0
+        self.__second_number = 0
+        self.__operator = ""
+        self.__result = 0.0
 
     @staticmethod
     def is_float(input_string: str) -> bool:
@@ -33,11 +37,11 @@ class Calculator:
                 print("Invalid input. Try to provide a valid number.")
 
     @staticmethod
-    def get_integer_to_float(sentence_string: str) -> float:
+    def get_integer_to_integer(sentence_string: str) -> float:
         while True:
             user_input = input(sentence_string + " ")
             if Calculator.is_integer(user_input) and not user_input.upper().isupper():
-                return float(user_input.strip())
+                return int(user_input.strip())
             else:
                 print("Invalid input. Try to provide a valid number.")
 
@@ -64,32 +68,28 @@ class Calculator:
             else:
                 print("Invalid response. Please enter [Y|N].")
 
-    @staticmethod
-    def calculate() -> float:
-        first_number = Calculator.get_integer_to_float(
-            "Enter the first number:")
-        arithmetic_operator = Calculator.get_operator("Enter the operator:")
-        second_number = Calculator.get_integer_to_float(
-            "Enter the second number:")
+    def calculate(self, first_num_prompt: str = "Enter the first number:", arithmetic_operator_prompt: str = "Enter the operator:", second_num_prompt: str = "Enter the second number:") -> float:
+        first_number = Calculator.get_integer_to_integer(first_num_prompt)
+        arithmetic_operator = Calculator.get_operator(
+            arithmetic_operator_prompt)
+        second_number = Calculator.get_integer_to_integer(second_num_prompt)
         if (arithmetic_operator == "/" and second_number == 0.0):
             raise ZeroDivisionError("Cannot divide by 0.")
-        return eval(f'{first_number} {arithmetic_operator} {second_number}')
+        result = float(
+            eval(f'{first_number} {arithmetic_operator} {second_number}'))
+        self.__first_number = first_number
+        self.__second_number = second_number
+        self.__operator = arithmetic_operator
+        self.__result = result
+        return result
 
     def run(self) -> None:
         while True:
-            first_number = Calculator.get_integer_to_float(
-                self.__first_numer_prompt)
-            arithmetic_operator = Calculator.get_operator(
-                self.__arithmetic_operator_prompt)
-            second_number = Calculator.get_integer_to_float(
-                self.__second_number_prompt)
-            if (arithmetic_operator == "/" and second_number == 0.0):
-                raise ZeroDivisionError("Cannot divide by 0.")
-            result = eval(
-                f'{first_number} {arithmetic_operator} {second_number}')
+            result = self.calculate(
+                self.__first_numer_prompt, self.__arithmetic_operator_prompt, self.__second_number_prompt)
             self.__calculate_history.append(result)
-            print(str(first_number) + " " + str(arithmetic_operator) +
-                  " " + str(second_number) + " = " + str(result))
+            print(str(self.__first_number) + " " + str(self.__operator) +
+                  " " + str(self.__second_number) + " = " + str(float(self.__result)))
             if (not Calculator.halt(self.__halt_prompt)):
                 break
         print(
