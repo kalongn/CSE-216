@@ -20,12 +20,10 @@ class Calculator:
             return False
 
     @staticmethod
-    def is_integer(input_string: str) -> bool:
-        try:
-            int(input_string.strip())
-            return True
-        except ValueError:
-            return False
+    def is_float_an_integer(input_string: str) -> bool:
+        if Calculator.is_float(input_string.strip()):
+            return float(input_string.strip()).is_integer()
+        return False
 
     @staticmethod
     def get_number(sentence_string: str) -> float:
@@ -40,7 +38,7 @@ class Calculator:
     def get_integer_to_integer(sentence_string: str) -> float:
         while True:
             user_input = input(sentence_string + " ")
-            if Calculator.is_integer(user_input) and not user_input.islower():
+            if Calculator.is_float_an_integer(user_input) and not user_input.islower():
                 return int(user_input.strip())
             else:
                 print("Invalid input. Try to provide a valid number.")
