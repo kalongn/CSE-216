@@ -71,7 +71,7 @@ class Calculator:
         arithmetic_operator = Calculator.get_operator(
             arithmetic_operator_prompt)
         second_number = Calculator.get_integer_to_integer(second_num_prompt)
-        if (arithmetic_operator == "/" and second_number == 0.0):
+        if (arithmetic_operator == "/" and second_number == 0):
             raise ZeroDivisionError("Cannot divide by 0.")
         result = float(
             eval(f'{first_number} {arithmetic_operator} {second_number}'))
