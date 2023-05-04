@@ -29,15 +29,6 @@ class Calculator:
     def get_number(sentence_string: str) -> float:
         while True:
             user_input = input(sentence_string + " ")
-            if Calculator.is_float(user_input) and not user_input.islower():
-                return float(user_input.strip())
-            else:
-                print("Invalid input. Try to provide a valid number.")
-
-    @staticmethod
-    def get_integer_to_integer(sentence_string: str) -> float:
-        while True:
-            user_input = input(sentence_string + " ")
             if Calculator.is_float_an_integer(user_input) and not user_input.islower():
                 return int(user_input.strip())
             else:
@@ -67,10 +58,10 @@ class Calculator:
                 print("Invalid response. Please enter [Y|N].")
 
     def calculate(self, first_num_prompt: str = "Enter the first number:", arithmetic_operator_prompt: str = "Enter the operator:", second_num_prompt: str = "Enter the second number:") -> float:
-        first_number = Calculator.get_integer_to_integer(first_num_prompt)
+        first_number = Calculator.get_number(first_num_prompt)
         arithmetic_operator = Calculator.get_operator(
             arithmetic_operator_prompt)
-        second_number = Calculator.get_integer_to_integer(second_num_prompt)
+        second_number = Calculator.get_number(second_num_prompt)
         if (arithmetic_operator == "/" and second_number == 0):
             raise ZeroDivisionError("Cannot divide by 0.")
         result = float(
