@@ -1,5 +1,5 @@
 class Calculator:
-    def __init__(self, first_numer_prompt: str, arithmetic_operator_prompt: str, second_number_prompt: str, goodbye_messg=None, halt_prompt: str = "Would you like to continue?") -> None:
+    def __init__(self, first_numer_prompt: str, arithmetic_operator_prompt: str, second_number_prompt: str, goodbye_messg: str = "Bye!", halt_prompt: str = "Would you like to continue?") -> None:
         self.__first_numer_prompt = first_numer_prompt
         self.__arithmetic_operator_prompt = arithmetic_operator_prompt
         self.__second_number_prompt = second_number_prompt
@@ -93,5 +93,5 @@ if __name__ == "__main__":
     # print(halt("Would you like to continue?"))
     # print(calculate())
     calc_one = Calculator("Enter the first number:",
-                          "Enter the operator:", "Enter the second number:", "Bye!")
+                          "Enter the operator:", "Enter the second number:")
     calc_one.run()
