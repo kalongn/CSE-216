@@ -30,7 +30,7 @@ class Calculator:
         while True:
             user_input = input(sentence_string + " ")
             if Calculator.is_float_an_integer(user_input) and not user_input.islower():
-                return int(user_input.strip())
+                return int(float(user_input.strip()))
             else:
                 print("Invalid input. Try to provide a valid number.")
 
