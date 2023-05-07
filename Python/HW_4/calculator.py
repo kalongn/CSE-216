@@ -26,7 +26,7 @@ class Calculator:
         return False
 
     @staticmethod
-    def get_number(sentence_string: str) -> float:
+    def get_number(sentence_string: str) -> int:
         while True:
             user_input = input(sentence_string + " ")
             if Calculator.is_float_an_integer(user_input) and not user_input.islower():
