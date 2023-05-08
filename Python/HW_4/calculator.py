@@ -61,10 +61,10 @@ class Calculator:
 
     @classmethod
     def calculate(cls, first_num_prompt: str = "Enter the first number:", arithmetic_operator_prompt: str = "Enter the operator:", second_num_prompt: str = "Enter the second number:") -> float:
-        first_number = Calculator.get_number(first_num_prompt)
-        arithmetic_operator = Calculator.get_operator(
+        first_number = cls.get_number(first_num_prompt)
+        arithmetic_operator = cls.get_operator(
             arithmetic_operator_prompt)
-        second_number = Calculator.get_number(second_num_prompt)
+        second_number = cls.get_number(second_num_prompt)
         if (arithmetic_operator == "/" and second_number == 0):
             raise ZeroDivisionError("Cannot divide by 0.")
         result = float(
