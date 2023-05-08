@@ -91,9 +91,5 @@ class Calculator:
 
 
 if __name__ == "__main__":
-    # print(Calculator.get_number("Please enter a number:"))
-    # print(get_operator("Enter an orithmetic operator:"))
-    # print(halt("Would you like to continue?"))
-    # print(calculate())
     calc_one = Calculator()
     calc_one.run()
