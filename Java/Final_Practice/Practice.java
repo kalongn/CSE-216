@@ -151,6 +151,6 @@ public class Practice {
         testGetMostFrequentElements(); // should print 5 \n 1 2 3 5 7 8
         System.out.println();
         // Thunk Example
-        testThunk();
+        testThunk(); // should print Lz eval examples \n 0
     }
 }
