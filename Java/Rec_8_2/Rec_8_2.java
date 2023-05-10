@@ -36,7 +36,7 @@ class Q5 {
 class Q6 {
     public static Map<String, Long> getWordsOccurances(String path) {
         try {
-            return Files.lines(Paths.get("<PATHS>")).flatMap(line -> Arrays.stream(line.split(" ")))
+            return Files.lines(Paths.get(path)).flatMap(line -> Arrays.stream(line.split(" ")))
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         } catch (IOException e) {
             e.printStackTrace();
