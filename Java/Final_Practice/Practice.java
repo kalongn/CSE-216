@@ -53,7 +53,7 @@ public class Practice {
      * @return
      *         A list of integer that is distinct
      */
-    public static List<Integer> distinctInteger(List<Integer> input) {
+    public static <T> List<T> distinctInteger(List<T> input) {
         return input.stream().distinct().collect(Collectors.toList());
     }
 
@@ -95,8 +95,8 @@ public class Practice {
      *         a list of integer where if they have the same frequence sorted in
      *         asccending order.
      */
-    public static List<Integer> getMostFrequentElements(List<Integer> input) {
-        Map<Integer, Long> map = input.stream()
+    public static <T> List<T> getMostFrequentElements(List<T> input) {
+        Map<T, Long> map = input.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         long maxFrequent = Collections.max(map.values());
         return map.entrySet().stream().filter(e -> e.getValue() == maxFrequent).map(e -> e.getKey()).sorted()
