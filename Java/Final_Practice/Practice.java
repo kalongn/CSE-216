@@ -1,6 +1,7 @@
 package Java.Final_Practice;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Practice {
@@ -82,10 +83,41 @@ public class Practice {
         System.out.println(longestVowelString(strings));
     }
 
+    /**
+     * This method takes an array of integers as input and returns an array of
+     * integers that represent the most frequently occurring elements in the input
+     * array. If there are multiple elements with the same frequency, the method
+     * should return all of them in ascending order.
+     * 
+     * @param nums
+     *             input list of numbers
+     * @return
+     *         a list of integer where if they have the same frequence sorted in
+     *         asccending order.
+     */
+    public static List<Integer> getMostFrequentElements(List<Integer> input) {
+        Map<Integer, Long> map = input.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        long maxFrequent = Collections.max(map.values());
+        return map.entrySet().stream().filter(e -> e.getValue() == maxFrequent).map(e -> e.getKey()).sorted()
+                .collect(Collectors.toList());
+    }
+
+    public static void testGetMostFrequentElements() {
+        List<Integer> nums = Arrays.asList(1, 5, 2, 8, 3, 5, 5, 2);
+        List<Integer> result = getMostFrequentElements(nums);
+        result.forEach(x -> System.out.print(x + " "));
+        nums = Arrays.asList(1, 5, 2, 8, 3, 7);
+        result = getMostFrequentElements(nums);
+        System.out.println();
+        result.forEach(x -> System.out.print(x + " "));
+    }
+
     public static void main(String[] args) {
-        testSumOfEven(); // should return 30
-        testShortestString(); // should return "pear"
-        testDistinctInteger(); // should return 1 2 3 4 5 6 7 8 9
-        testLongestVowelString(); // should return banana
+        testSumOfEven(); // should print 30
+        testShortestString(); // should print "pear"
+        testDistinctInteger(); // should print 1 2 3 4 5 6 7 8 9
+        testLongestVowelString(); // should print banana
+        testGetMostFrequentElements(); // should print 5 \n 1 2 3 5 7 8
     }
 }
