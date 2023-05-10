@@ -2,9 +2,12 @@ package Java.Final_Practice;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Practice {
+
+    // Stream API Practice Below
 
     /**
      * Given a list of integers, find the sum of all even numbers in the list.
@@ -113,11 +116,41 @@ public class Practice {
         result.forEach(x -> System.out.print(x + " "));
     }
 
+    // Thunk Example Practice
+    public static <T> Supplier<T> printLater(T input) {
+        return new Supplier<T>() {
+
+            @Override
+            public T get() {
+                System.out.println(input.toString());
+                return input;
+            }
+        };
+    }
+
+    public static <T> void checkInput(T input) {
+        if (input.equals("0")) {
+            printLater(input).get();
+        } else {
+            System.out.println("Lz eval examples");
+        }
+    }
+
+    public static <T> void testThunk() {
+        checkInput("1");
+        checkInput("0");
+    }
+
     public static void main(String[] args) {
+
+        // Stream API Practice
         testSumOfEven(); // should print 30
         testShortestString(); // should print "pear"
         testDistinctInteger(); // should print 1 2 3 4 5 6 7 8 9
         testLongestVowelString(); // should print banana
         testGetMostFrequentElements(); // should print 5 \n 1 2 3 5 7 8
+        System.out.println();
+        // Thunk Example
+        testThunk();
     }
 }
