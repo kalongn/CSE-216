@@ -1,6 +1,7 @@
 package Java.Final_Practice;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Practice {
 
@@ -52,9 +53,7 @@ public class Practice {
      *         A list of integer that is distinct
      */
     public static List<Integer> distinctInteger(List<Integer> input) {
-        return input.stream().distinct().toList();
-        // chat-GPT ansswer:
-        // input.stream().distinct().collect(Collectors.toList());
+        return input.stream().distinct().collect(Collectors.toList());
     }
 
     public static void testDistinctInteger() {
