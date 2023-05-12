@@ -6,6 +6,11 @@ let reverse_list list =
   in aux [] list
 ;;
 
+let rec reverse_list list = match list with
+  | [] -> []
+  | h::t -> (reverse_list t)@[h]
+;;
+
 let rec map_list f list = match list with
   | [] -> []
   | h::t -> f(h)::(map_list f t)
