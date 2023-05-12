@@ -3,6 +3,7 @@ package Java.Final_Practice;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Practice {
@@ -116,6 +117,27 @@ public class Practice {
         result.forEach(x -> System.out.print(x + " "));
     }
 
+    /**
+     * Given List of Strings as input and returns a new List containing only the
+     * Strings
+     * that are palindrome.
+     * 
+     * @param input
+     *              input list.
+     * @return
+     *         a new List containing only the Strings that are palindrome.
+     */
+    public static List<String> onlyPallindrome(List<String> input) {
+        return input.stream().filter(x -> x.equals(new StringBuilder(x).reverse().toString()))
+                .collect(Collectors.toList());
+    }
+
+    public static void testOnlyPallindrome() {
+        List<String> strings = Arrays.asList("abba", "lol", "Banerjee", "Test", "T", "Lx.xx.xL");
+        List<String> result = onlyPallindrome(strings);
+        result.forEach(x -> System.out.print(x + " "));
+    }
+
     // Thunk Example Practice
     public static <T> Supplier<T> printLater(T input) {
         return new Supplier<T>() {
@@ -149,6 +171,7 @@ public class Practice {
         testDistinctInteger(); // should print 1 2 3 4 5 6 7 8 9
         testLongestVowelString(); // should print banana
         testGetMostFrequentElements(); // should print 5 \n 1 2 3 5 7 8
+        testOnlyPallindrome(); // should print “abba”, “lol”, “T”, “Lx.xx.xL”
         System.out.println();
         // Thunk Example
         testThunk(); // should print Lz eval examples \n 0
