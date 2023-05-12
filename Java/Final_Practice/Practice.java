@@ -87,15 +87,15 @@ public class Practice {
     }
 
     /**
-     * This method takes an array of integers as input and returns an array of
-     * integers that represent the most frequently occurring elements in the input
-     * array. If there are multiple elements with the same frequency, the method
-     * should return all of them in ascending order.
+     * This method takes a List of T elements as input and returns a List of
+     * T that represent the most frequently occurring elements in the input
+     * original List. If there are multiple elements with the same frequency, the
+     * method should return all of them in ascending order.
      * 
      * @param nums
-     *             input list of numbers
+     *             input list of type T
      * @return
-     *         a list of integer where if they have the same frequence sorted in
+     *         a list of T where if they have the same frequence sorted in
      *         asccending order.
      */
     public static <T> List<T> getMostFrequentElements(List<T> input) {
