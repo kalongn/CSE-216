@@ -37,8 +37,7 @@ public class Practice {
      *         the shortest string (left priority) within the list.
      */
     public static String shortestString(List<String> input) {
-        return input.stream().reduce(input.size() > 0 ? input.get(0) : null,
-                (a, b) -> a.length() - b.length() > 0 ? b : a);
+        return input.stream().reduce((a, b) -> a.length() - b.length() > 0 ? b : a).orElse("");
         // chat-GPT answer:
         // strings.stream().min(Comparator.comparingInt(String::length)).orElse(null);
     }
