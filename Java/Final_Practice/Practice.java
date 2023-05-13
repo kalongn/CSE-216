@@ -144,6 +144,9 @@ public class Practice {
      * {1,2,2,3,4,5,5,5,6} -> 1: 1, 2: 2, 3: 1,
      * 4: 1, 5: 3, 6: 1
      * 
+     * @param input
+     *              input List
+     * 
      */
     public static void printFrequency(List<Integer> input) {
         Map<Integer, Long> result = input.stream()
@@ -153,7 +156,7 @@ public class Practice {
 
     public static void testPrintFrequency() {
         System.out.println();
-        List<Integer> nums = Arrays.asList(1,2,2,3,4,5,5,5,6);
+        List<Integer> nums = Arrays.asList(1, 2, 2, 3, 4, 5, 5, 5, 6);
         printFrequency(nums);
     }
 
