@@ -149,9 +149,8 @@ public class Practice {
      * 
      */
     public static void printFrequency(List<Integer> input) {
-        Map<Integer, Long> result = input.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        result.entrySet().forEach(x -> System.out.print(x.getKey() + " -> " + x.getValue() + " "));
+        input.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet()
+                .forEach(x -> System.out.print(x.getKey() + " -> " + x.getValue() + " "));
     }
 
     public static void testPrintFrequency() {
