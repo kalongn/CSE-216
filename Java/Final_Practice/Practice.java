@@ -3,6 +3,7 @@ package Java.Final_Practice;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Practice {
@@ -136,6 +137,27 @@ public class Practice {
         result.forEach(x -> System.out.print(x + " "));
     }
 
+    /**
+     * Given a list of integers, prints out key-value pairs where the key is a
+     * unique
+     * element in the list and its value is the number of occurrences of that
+     * integer in the list. i.e.
+     * {1,2,2,3,4,5,5,5,6} -> 1: 1, 2: 2, 3: 1,
+     * 4: 1, 5: 3, 6: 1
+     * 
+     */
+    public static void printFrequency(List<Integer> input) {
+        Map<Integer, Long> result = input.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        result.entrySet().forEach(x -> System.out.print(x.getKey() + " -> " + x.getValue() + " "));
+    }
+
+    public static void testPrintFrequency() {
+        System.out.println();
+        List<Integer> nums = Arrays.asList(1,2,2,3,4,5,5,5,6);
+        printFrequency(nums);
+    }
+
     // Thunk Example Practice
     public static <T> Supplier<T> printLater(T input) {
         return new Supplier<T>() {
@@ -170,6 +192,7 @@ public class Practice {
         testLongestVowelString(); // should print banana
         testGetMostFrequentElements(); // should print 5 \n 1 2 3 5 7 8
         testOnlyPallindrome(); // should print “abba”, “lol”, “T”, “Lx.xx.xL”
+        testPrintFrequency();
         System.out.println();
         // Thunk Example
         testThunk(); // should print Lz eval examples \n 0
