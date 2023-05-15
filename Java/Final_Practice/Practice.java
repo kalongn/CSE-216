@@ -18,7 +18,7 @@ public class Practice {
      *         the sum of all even number within the list.
      */
     public static int sumOfEven(List<Integer> input) {
-        return input.stream().filter(x -> x % 2 == 0).reduce(0, (a, b) -> a + b);
+        return input.stream().filter(x -> x % 2 == 0).reduce(Integer::sum).orElse(0);
         // chat-GPT answer:
         // input.stream().filter(n -> n % 2 == 0).reduce(0, Integer::sum);
     }
@@ -185,29 +185,39 @@ public class Practice {
     }
 
     // this is compile time error as we are not sure is list is a List<String>
-    /*public static <T> void addToStringlist(List<T> list) {
-        list.add("foo");
-    }*/
+    /*
+     * public static <T> void addToStringlist(List<T> list) {
+     * list.add("foo");
+     * }
+     */
 
     // this is fine
-    /*public static void addToStringList(List<Object> list) {
-        list.add("foo");
-    }*/
+    /*
+     * public static void addToStringList(List<Object> list) {
+     * list.add("foo");
+     * }
+     */
 
     // this is also fine
-    /*public static void addToStringList(List<? super String> list){
-        list.add("foo");
-    }*/
+    /*
+     * public static void addToStringList(List<? super String> list){
+     * list.add("foo");
+     * }
+     */
 
     // don't do this, raw type warning and unsafe.
-    /*public static void addToStringList(List list) {
-        list.add("foo");
-    }*/
+    /*
+     * public static void addToStringList(List list) {
+     * list.add("foo");
+     * }
+     */
 
     // Compile time error as we are not sure if List is a List<String>.
-    /*public static void addToStringList(List<? extends String> list) {
-        list.add("foo");
-    }*/ 
+    /*
+     * public static void addToStringList(List<? extends String> list) {
+     * list.add("foo");
+     * }
+     */
 
     public static void main(String[] args) {
 
